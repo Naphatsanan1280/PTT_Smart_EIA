@@ -312,7 +312,7 @@
                                 <option value="in">แนวท่อทั้งหมดอยู่ในเขตนิคนอุตสาหกรรม</option>
                                 <option value="out">แนวท่อทั้งหมดอยู่นอกเขตนิคนอุตสาหกรรม</option>
                             </select>
-                            <button id="BtnProcess" onclick="getresulte()"> ตกลง </button>
+                            <button id="BtnProcess" onclick="resulte()"> ตกลง </button>
                         </div>
 
                         <div id="area2" class="area2">
@@ -325,7 +325,7 @@
                                 <option value="y">ตั้งอยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1</option>
                                 <option value="n">ไม่ตั้งอยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1</option>
                             </select>
-                            <button id="BtnProcess" onclick="getresulte()"> ตกลง </button>
+                            <button id="BtnProcess" onclick="resulte()"> ตกลง </button>
                         </div>
                     </div>
                    
@@ -455,9 +455,7 @@
 
                 var pipesize = $('#size').find(":selected").val();
 
-                var area2 = $('#selectarea2').find(":selected").val();
-
-                var area1 = $('#selectarea1').find(":selected").val();
+               
 
                 var x = document.getElementById("resulte");
 
@@ -477,23 +475,41 @@
                     if (pressure == 1 && pipesize == 1) {
                         z2.style.display = "block";
                         z1.style.display = "none";
-                        if (area2 == 'y') {
-                            x.style.display = "block";
-                            y.style.display = "none";
-                            document.getElementById('typeresulte').innerHTML = "ER";
-                        }
-                        else {
-                            x.style.display = "block";
-                            y.style.display = "none";
-                            document.getElementById('typeresulte').innerHTML = "EIA";
-                        }
-
                     }
 
                     else {
                         z2.style.display = "block";
                         z1.style.display = "block";
-                        if (area1 == 'in' && area2=="y") {
+                       
+                    }
+                }
+                
+            }
+
+            function resulte() {
+                 var area2 = $('#selectarea2').find(":selected").val();
+
+                var area1 = $('#selectarea1').find(":selected").val();
+
+                 var x = document.getElementById("resulte");
+
+                var y = document.getElementById("SpecifyType");
+
+                var z1 = document.getElementById("area1");
+
+                var z2 = document.getElementById("area2");
+
+                 if (area2 == 'y') {
+                            x.style.display = "block";
+                            y.style.display = "none";
+                            document.getElementById('typeresulte').innerHTML = "ER";
+                        }
+                  else {
+                            x.style.display = "block";
+                            y.style.display = "none";
+                            document.getElementById('typeresulte').innerHTML = "EIA";
+                        }
+                 if (area1 == 'in' && area2=="y") {
                             x.style.display = "block";
                             y.style.display = "none";
                             document.getElementById('typeresulte').innerHTML = "EIA";
@@ -508,12 +524,8 @@
                             y.style.display = "none";
                             document.getElementById('typeresulte').innerHTML = "EIA";
                         }
-                    }
-                }
-                
-            }
 
-           
+            }
 
             $(document).ready(function () {
                   $("#aa").click(function () {
