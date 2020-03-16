@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <style>
+            body {
+                 font-family: "DBSathornMedium","Trebuchet MS", sans-serif;
+            font-size: 22px;
+                background-image: url(../../Image/11-01.jpg);
+                background-size: cover;
+            }
+
+            .imgcontainer {
+                text-align: center;
+                margin: 24px 0 12px 0;
+            }
+
+            #login {
+                text-align: center;
+                margin: 24px 0 12px 0;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="Login">
+            <div class="imgcontainer">
+                <img  src="~/Image/Logo.png" />
+            </div>
+
+            <div width: 100%; text-align: center;>
+                <label style="width:100%; color:darkblue; height:10%; text-align:center; margin-top:3%; "> Smart EIA Regulatory Screening System </label>
+            </div>
+
+            <div>
+                <label style="width:100%; color:darkblue; height:10%; text-align:center; "> Login </label>
+            </div>
+            
+            <div id="login" >
+                <div style=" width:30%; text-align: center; display: inline-block; margin: 0 auto; padding: 3px; border-radius:12px; color:white; background: linear-gradient(to right, rgba(38,33,102,1), rgba(225,255,255,1) );">
+                    <br />
+                    <label id="l1">Username  <input type="text" />  </label><br />
+                    <label id="l1">Password  <input type="text" />  </label><br />
+                    <label id="l1">Domain    <input type="text" />  </label><br />
+                    <button class="w3-button w3-blue" style="border-radius:12px;" onclick="window.location.href = '/Home/Homepage';">
+                        Login
+                    </button>
+                    
+                </div>
+                
+            </div>
+           
+
+        </div>
+    </body>

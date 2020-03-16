@@ -1,0 +1,141 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<html>
+<head>
+     <style>
+        body{
+           font-family: "DBSathornMedium","Trebuchet MS", sans-serif;
+            font-size: 22px;
+             background-image:url(../../Image/BG3.jpg);
+             background-size: cover;
+            
+        }
+        .page-header {
+            width: 100%;
+            height: 100px;
+            position:fixed;
+          
+        }
+
+        .body-content {
+            width: 100%;
+            height: 600px;
+        }
+
+        
+
+        .logo {
+              padding:5px;
+            float: left;
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+        }
+
+        .menu {
+            float: right;
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+            display: flex;
+      
+        }
+        
+        #home{
+         width: 20%;
+         background-color: #302E84;
+         color:white;
+        }
+
+        #contact,#login, #search{
+         width: 20%;
+        }
+         #search{
+             
+            line-height: 90px;
+          width: 25%;
+        }
+        .active-cyan input[type=text] {
+          border-bottom: 1px solid #4dd0e1;
+          box-shadow: 0 1px 0 0 #4dd0e1;
+        }
+        .active-cyan .fa, .active-cyan-2 .fa {
+          color: #4dd0e1;
+        }
+        #labeltopic{
+            width:100%;
+            vertical-align: middle;
+             line-height: 90px;
+            font-family:'Trebuchet MS';
+            font-size:40px;
+            text-align:center;
+            margin-top:100px;
+            color:#326FA4;
+        }
+        .card{
+            opacity:0.8;
+           margin:80px 30px 0 30px;
+           background-color:rgb(36, 182, 1259);
+           
+           color:white;
+        }
+        .card-header{
+             text-align:center;
+             font-size:25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">
+        <div class="logo">
+            <img style="width:245px; height:100px; float:left;" src="~/Image/Logo.png" />
+        </div>
+        <div class="menu">
+
+            <div id="home">
+                <a  href="/Home/Index"> <label>หน้าแรก</label></a>   
+            </div>
+            <div id="contact">
+                <a href="#">   <label>ติดต่อเรา</label></a>
+            </div>
+            <div id="login" >
+                <a href="/Home/Login">   <label>เข้าสู่ระบบ</label></a>
+            </div>
+            <div id="search">
+                <label>
+                    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                           aria-label="Search">
+                </label>
+            </div>
+            
+        </div>
+       
+        
+    </div>
+    <div class="body-content">
+        <label id="labeltopic">Smart EIA Regulatory Screening System</label>
+        <div class="card">
+            <div class="card-header" >
+                <label>
+                    <img src="~/Image/document.png" style="width:50px; height:50px;" />รายละเอียดโครงการ
+                </label>  
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <p>รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ รายละเอียดโครงการ</p>
+                    <footer class="blockquote-footer">รายละเอียดโครงการ <cite title="Source Title">รายละเอียดโครงการ</cite></footer>
+                </blockquote>
+            </div>
+        </div>
+    </div>
+    
+
+</body>
+
+</html>
