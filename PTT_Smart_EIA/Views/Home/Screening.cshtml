@@ -12,8 +12,8 @@
             }
             .page-header {
                 width: 100%;
-                height: 125px;
-                background-image:url(../../Image/12-01.jpg);
+                height: 100px;
+                background-color: rgba(0, 0, 0, 0.5); 
                 background-size: cover;
                 position: fixed;
                 top:0;
@@ -48,7 +48,6 @@
 
             #home {
                 width: 20%;
-                background-color: #302E84;
                 color: white;
             }
 
@@ -89,9 +88,9 @@
 
                 .name{
                     width:100%;
-                    height:20em;
+                    height:15em;
                     top:100px;
-                    background-image:url(../../Image/BG5.jpg);
+                    background-image:url(../../Image/Backgroung/B10.jpg);
                      background-size: cover;
                      text-align:center;
                 }
@@ -117,11 +116,12 @@
                      width: 100%;
                      height:150px;
                      display: grid;
-                     grid-template-columns: repeat(6, 1fr);
+                     grid-template-columns: repeat(7, 1fr);
                      grid-auto-rows: 200px;
                      text-align: center;
                      vertical-align: middle;
                      line-height: 30px;
+                     font-size:18px;
                   
                 }
                 #menubb{
@@ -136,8 +136,8 @@
                 }
                 
                 img{
-                    width:50px;
-                    height:50px;
+                    width:70px;
+                    height:70px;
                 }
                 .btnsearch{
                     margin-top:30px;
@@ -152,7 +152,10 @@
                 .discription{
                     display:none;
                     position:absolute;
-
+                    border:solid 1px;
+                    width:400px;
+                    height:auto;
+                    background-color:white;
                 }
 
         </style>
@@ -161,7 +164,7 @@
 
     <div class="page-header">
         <div class="logo">
-            <img style="width:196px; height:81px; float:left;" src="~/Image/Logo.png" />
+            <img style="width:196px; height:81px; float:left;" src="~/Image/Logo/logo ptt-01.png" />
         </div>
         <div class="menu">
 
@@ -182,61 +185,65 @@
     </div>
 
     <div class="name">
-        <label id="laname"> Smart EIA Regulatory Screening System </label>
+        
     </div>
 
     <div class="menuA">
         <div class="menuaa">
-            <label id="menubb" onclick="window.location.href = '/Home/CalculateArea';" ><img src="~/Image/picture.png" ; /><br /> โครงการระบบขนส่งปิโตรเลียมและน้ำมันเชื้อเพลิงทางท่อ </label>
-            <div class="discription">
-                <div id="icon"> <img src="~/Image/picture.png"/></div>
-                <div id="disc">
-                    <p>โครงการระบบขนส่งปิโตรเลียมและน้ำมันเชื้อเพลิงทางท่อ</p>
-                    <p>-ก๊าซธรรมชาติ (NG)      -ไอก๊าซ </p>
-                    <p>-ก๊าซธรรมชาตืเหลว (NGL)  -ของเหล; </p>
+
+            <label id="menubb"><img src="~/Image/icon/icon-01.jpg" ; /><br /> การพัฒนาปิโตรเลียม </label>
+
+            <label id="menubb" onclick="showDiv()"><img src="~/Image/icon/icon-02.jpg" ; /><br /> ระบบขนส่งปิโตรเลียมและน้ำมันเชื้อเพลิงทางท่อ </label>
+            <div id="discription" class="discription" onclick="window.location.href = '/Home/CalculateArea';">
+                <div id="icon" style=" float:left; width:20%;"> <img src="~/Image/icon/icon-02.jpg"/></div>
+                <div id="disc" style=" float:left; width:80%; text-align:justify; line-height: 15px;"  >
+                    <h5>โครงการระบบขนส่งปิโตรเลียมและน้ำมันเชื้อเพลิงทางท่อ</h5>
+                    <p>-ก๊าซธรรมชาติ (NG) -ไอก๊าซ </p>
+                    <p>-ก๊าซธรรมชาตืเหลว (NGL) -ของเหลว </p>
                     <p>-ก๊าซปิโตรเลียม (LPG)</p>
                     <p>-น้ำมัน</p>
                     <p>-สารประกอบไฮโดณคาบอนอื่น ๆ </p>
                 </div>
             </div>
+            <label id="menubb"><img src="~/Image/icon/icon-03.jpg" ; /><br /> นิคมอุตสาหกรรม </label>
 
-            <label id="menubb"><img src="~/Image/picture.png";/><br /> อุตสาหกรรมแยกหรือแแปรสภาพก๊าซธรรมชาติ </label>
+            <label id="menubb"><img src="~/Image/icon/icon-04.jpg" ; /><br /> อุตสาหกรรมปิโตรเคมี </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> การพัฒนาปิโตรเลียมตามกฎหมายว่าด้วยปิโตรเลียม </label>
+            <label id="menubb"><img src="~/Image/icon/icon-05.jpg" ; /><br /> อุตสาหกรรมกลั่นน้ำมันปิโตรเลียม </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> อุตสาหกรรมกลั่นน้ำมันปิโตรเลียม </label>
+            <label id="menubb"><img src="~/Image/icon/icon-06.jpg" ; /><br /> อุตสาหกรรมแยกหรือแปรสภาพก๊าซธรรมชาติ </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> โรงงานปรับคุณภาพของเสียรวมเฉพาะสิ่งปฏิกูลหรือวัสดุที่ไม่ใช้แล้ว </label>
+            <label id="menubb"><img src="~/Image/icon/icon-07.jpg" ; /><br /> โรงงานปรับคุณภาพของเสียรวมเฉพสะสิ่งปฎิกูลหรือวัสดุที่ไม่ใช้แล้ว </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> อุตสาหกรรมปิโตรเลียมเคมีที่มีกระบวนการผลิตทางเคมี </label>
-
-        </div>
-        <div  class="menuaa">
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> นิคมอุตสาหกรรมตามกฎหมายว่าด้วยการนิคมอุตสาหกรรมฯ </label>
-
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> โรงไฟฟ้าพลังความร้อนฯ </label>
-
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> ระบบขนส่งมวลชนที่ใช้ราง </label>
-
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> อาคารสูงหรืออาคารขนาดใหญ่พิเศษ </label>
-
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> โรงแรมหรือสถานที่พักตากอากาศ </label>
-
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> อาคารอยู่อาศัยรวม </label>
 
         </div>
-        <div  class="menuaa">
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> การจัดสรรที่ดินเพื่อเป็นที่อยู่อาศัยหรือเพื่อประกอบการพาณิชญ์ </label>
+        <div class="menuaa">
+            <label id="menubb"><img src="~/Image/icon/icon-08.jpg" ; /><br /> โรงไฟฟ้าพลังความร้อน </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> ท่าเทียบเรือ </label>
+            <label id="menubb"><img src="~/Image/icon/icon-09.jpg" ; /><br /> ระบบขนส่งมวลชนที่ใช้ราง </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> ถมที่ดินในทะเล </label>
+            <label id="menubb"><img src="~/Image/icon/icon-10.jpg" ; /><br /> ท่าเทียบเรือ </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> การก่อสร้างหรือขยายสิ่งก่อสร้างบริเวณหรือในทะเล </label>
+            <label id="menubb"><img src="~/Image/icon/icon-11.jpg" ; /><br /> ท่าเทียบเรือสำราญกีฬา </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> โรงพยาบาล </label>
+            <label id="menubb"><img src="~/Image/icon/icon-12.jpg" ; /><br /> การถมที่ดินในทะเลหรือทะเลสาบ </label>
 
-            <label id="menubb"><img src="~/Image/picture.png" ; /><br /> สนามบิน </label>
+            <label id="menubb"><img src="~/Image/icon/icon-13.jpg" ; /><br /> การก่อสร้างหรือขยายสิ่งก่อสร้างบริเวณหรือในทะเล </label>
+
+            <label id="menubb"><img src="~/Image/icon/icon-14.jpg" ; /><br /> อาคารสูงหรืออาคารขนาดใหญ่พิเศษ </label>
+
+        </div>
+        <div class="menuaa">
+            <label id="menubb"> <br /> </label>
+            <label id="menubb" onclick="window.location.href = '/Home/LargeBuildings';"><img src="~/Image/icon/icon-15.jpg" ; /><br /> อาคารสูงหรืออาคารขนาดใหญ่พิเศษ </label>
+
+            <label id="menubb"><img src="~/Image/icon/icon-16.jpg" ; /><br /> การจัดสรรที่ดิน </label>
+
+            <label id="menubb" onclick="window.location.href = '/Home/Hospital';"><img src="~/Image/icon/icon-17.jpg" ; /><br /> โรงพยาบาลหรือสถานพยาบาล </label>
+
+            <label id="menubb" onclick="window.location.href = '/Home/Hotel';"><img src="~/Image/icon/icon-18.jpg" ; /><br /> โรงแรมหรือสถานที่พักตากอากาศ </label>
+
+            <label id="menubb" onclick="window.location.href = '/Home/ResidentialBuildings';"><img src="~/Image/icon/icon-19.jpg" ; /><br /> อาคารอยู่อาศัยรวม </label>
         </div>
         <div class="btnsearch">
             <button style="width:20%;">Search icon</button>
@@ -248,11 +255,22 @@
     </div>
 
     <script>
+
         $(document).ready(function () { 
              $("menubb").hover(function () {
                  $('.discription').slideDown(100);    
              });
         });
+
+        function showDiv() {
+            var x = document.getElementById("discription");
+            if(x.style.display=="none") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "block";
+            }
+}
+
 
     </script>
 

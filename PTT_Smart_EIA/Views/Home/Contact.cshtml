@@ -83,29 +83,63 @@
             .active-cyan .fa, .active-cyan-2 .fa {
                 color: #4dd0e1;
             }
+
+            .left-panel
+            {        
+                background-color:#ccc;
+                width:25%;
+                height:100px;
+                float:left;            
+            }
+        .center-panel{
+        background-color:#fff;
+        width:50%;
+        height:100px;
+        float:left; 
+}
+    .right-panel
+    {        
+        background-color:Gray;
+        width:25%;
+        height:100px;
+        float:right;
+    }
+
         </style>
     </head>
-<body>
-    <div class="page-header">
-        <div class="logo">
-            <img style="width:245px; height:100px; float:left;" src="~/Image/Logo.png" />
-        </div>
-        <div class="menu">
-            <div id="home">
-                <a href="/Home/Homepage"> <label>หน้าแรก</label></a>
+    <body>
+        <div class="page-header">
+            <div class="logo">
+                <img style="width:245px; height:100px; float:left;" src="~/Image/Logo.png" />
             </div>
-            <div id="contact">
-                <a href="/Home/Contact">   <label>ติดต่อเรา</label></a>
+            <div class="menu">
+                <div id="home">
+                    <a href="/Home/Homepage"> <label>หน้าแรก</label></a>
+                </div>
+                <div id="contact">
+                    <a href="/Home/Contact">   <label>ติดต่อเรา</label></a>
+                </div>
+
+                <div id="search">
+                    <label>
+                        <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
+                               aria-label="Search">
+                    </label>
+                </div>
             </div>
-            
-            <div id="search">
-                <label>
-                    <input class="form-control form-control-sm mr-3 w-75" type="text" placeholder="Search"
-                           aria-label="Search">
-                </label>
-            </div>
+
         </div>
 
-    </div>
-</body>
+        <div class="left-panel">
+            First panel
+        </div>
+        <div class="center-panel">
+            Second panel
+        </div>
+        <div class="right-panel">
+            third panel
+        </div>
+
+
+    </body>
 

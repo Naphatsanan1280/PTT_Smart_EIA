@@ -1,0 +1,272 @@
+﻿
+@{
+    ViewBag.Title = "Hotel";
+}
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd33TLAVehao--qEJ9u7j7ZNSjN1315C0&callback=initMap"
+            async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <style>
+        html, body {
+            margin: 0;
+            height: 100%;
+        }
+
+        body {
+            font-family: DBSathornMedium;
+            font-size: 18px;
+        }
+
+        .page-header {
+            font-size: 25px;
+            width: 100%;
+            height: 100px;
+            background-color: rgba(112, 112, 112,1);
+            line-height: 90px;
+            text-align: center;
+            position: fixed;
+        }
+
+        #homelabe {
+            color: white;
+        }
+
+        .logo {
+            padding: 5px;
+            float: left;
+            width: 50%;
+            height: 100%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+        }
+
+        .menu {
+            float: right;
+            width: 50%;
+            height: 70%;
+            text-align: center;
+            vertical-align: middle;
+            line-height: 90px;
+            display: flex;
+        }
+
+        #home {
+            width: 20%;
+            color: white;
+            float: right;
+        }
+
+        .map {
+            background-color: #fff;
+            width: 50%;
+            padding: 5px;
+            height: 100%;
+            float: left;
+        }
+
+        .specify {
+            padding: 10px;
+            border: solid 1px;
+            border-radius: 10px;
+            background-color: white;
+            width: 25%;
+            height: 100%;
+            float: right;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        label, textarea {
+            width: 100%;
+        }
+
+        textarea {
+            padding: 10px;
+        }
+
+        select {
+            width: 100%;
+        }
+
+        #hrr {
+            display: block;
+            margin-top: 0.5px;
+            margin-bottom: 0.5px;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 0.9px;
+            background-color: black;
+        }
+
+        #resulte, #costomtest, #kmztest, #areatest, #area {
+            display: none;
+        }
+
+        #selectpanel {
+            width: 100%;
+            text-align: center;
+            vertical-align: middle;
+            display: flex;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        #test {
+            background-color: white;
+            border: solid 1px;
+            border-radius: 10px;
+            width: 25%;
+            height: 100%;
+            float: left;
+            padding: 10px;
+        }
+
+        #btnshowhide {
+            height: 10%;
+        }
+
+        #aa, #ab, #ac, #ad {
+            border: solid 1px;
+            padding: 5px;
+        }
+
+        #areatest, #costomtest, #kmztest {
+            width: auto;
+            background-color: azure;
+        }
+
+        .toppic {
+            font-size: 40px;
+            width: 100%;
+            height: 100px;
+            line-height: 90px;
+            text-align: center;
+            color: white;
+            padding: 10px;
+        }
+
+        #contrian {
+            width: 100%;
+            height: 700px;
+            padding: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="page-header">
+        <div class="logo">
+            <img style="width:196px; height:81px; float:left;" src="~/Image/Logo/logo ptt-01.png" />
+        </div>
+
+        <div id="home">
+            <a id="homelabe" href="/Home/Homepage"> <label> หน้าแรก</label> </a>
+        </div>
+
+    </div>
+    <div class="toppic"> </div>
+    <div class="toppic">
+        <div class="logo" style="width:10%; height:100px; float:left;">
+            <img style="width:100px; height:100px; " src="~/Image/icon/icon-15.jpg" />
+        </div>
+        <label style="width:90%; float:right; text-align:left; padding:5px; background-color:#22A7E0;"> โรงแรมหรือสถานที่พักตากอากาศ </label>
+    </div>
+    <div id="contrian">
+        <div id="test" class="container sidebar sidebar-left">
+            <h4>1.ระบุที่ตั้งโครงการ</h4>
+            <div class="user">
+                <div id="aa">พิกัดที่ตั้ง </div>
+                <div id="areatest">
+                    <label>ระบุพิกัด UTM WGS 84</label>
+                    <label>
+                        Zone:
+                        <select>
+                            <option>47</option>
+                            <option>48</option>
+                        </select>
+                    </label>
+                    <hr />
+                    <label>
+                        East:
+                        <input type="text" />
+                    </label>
+                    <label>
+                        North:
+                        <input type="text" />
+                    </label>
+                    <button>ตกลง</button>
+                </div>
+                <div id="ab">กำหนดเอง</div>
+                <div id="costomtest">
+                    <button>add placemark</button>
+                    <button>draw line or shape</button>
+                    <div style="width:100px; height:50px; border:solid 1px;"></div>
+                </div>
+                <div id="ac">
+                    ตำแหน่งจากข้อมูล KMZ ไฟล์
+                </div>
+                <div id="kmztest">
+                    <button>import file</button>
+                    <button>clear</button>
+                    <div style="width:100px; height:50px; border:solid 1px;"></div>
+                </div>
+                <div id="ad">ไม่ระบุที่ตั้งโครงการ</div>
+            </div>
+
+        </div>
+        <div class="map">
+            <div id="map"></div>
+        </div>
+        <div class="specify">
+
+            <div id="resulte">
+
+                <label style="text-align:center;">  <button class="btn btn-primary" onclick="back()"> ^ ย่้อนกลับ </button></label><br />
+                <hr />
+                <label style="width:100%; text-align:left;"><u>สรุปผล</u></label><br />
+                <label>โครงการ กิจการ หรือการดาเนินการ <u style="color:red;">เข้าข่าย</u> ต้องจัดทารายงานด้านสิ่งแวดล้อมตามกฎหมาย ดังนี้</label>
+                <label><u>ประเภท</u> </label>
+                <textarea id="typeresulte" rows="2">--</textarea>
+                <label><u>เสนอต่อ</u> </label>
+                <label>
+                    <img style="width:20%; height:50px; float:left;" src="~/Image/picture.png" />
+                    <textarea id="toresulte" rows="3" style="width:80%;">  </textarea>
+                </label>
+                <label><u>ตามกฎหมาย </u></label>
+                <textarea id="rawresulte" rows="4">  </textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+            var map;
+            var mapcode;
+            var latlng = { lat: 13.7651624, lng: 100.893642 }
+            var infowindow;
+            var markerarray = [];
+            var polyline = null;
+            function initMap() {
+                map = new google.maps.Map(
+                    document.getElementById('map'), {
+                    center: latlng,
+                    zoom: 6,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+            }
+
+        function add() { }
+        function remove() { }
+
+    </script>
+</body>

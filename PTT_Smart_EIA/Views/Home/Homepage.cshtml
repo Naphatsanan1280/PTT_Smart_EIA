@@ -11,13 +11,16 @@
             background-image: url(../../Image/bG.jpg);
             background-size: cover;
             width:100%;
-            height:30em;
         }
       
         .page-header {
             width: 100%;
-            height: 100px;
-            background-color:gray;
+                height: 100px;
+                background-color: rgba(0, 0, 0, 0.5); 
+                background-size: cover;
+                position: fixed;
+                top:0;
+                z-index: 1;
      
         }
 
@@ -27,7 +30,6 @@
         }
 
         .logo {
-          padding:5px;
             float: left;
             width: 50%;
             height: 100%;
@@ -43,7 +45,6 @@
             vertical-align: middle;
             line-height: 90px;
             display: flex;
-            
             color: white;
         }
 
@@ -51,6 +52,7 @@
             width: 20%;
             color: white;
         }
+       
 
         #contact, #login, #search {
             width: 25%;
@@ -81,7 +83,7 @@
             font-size:18px;
         }
         .gis{
-             height:50%;
+             height:60%;
             padding:5px;
             margin:20px;  
           color:white;
@@ -94,7 +96,7 @@
             }
            
         .regula{
-             height:50%;
+             height:60%;
              padding:5px;
             margin:20px;  
           color:white;
@@ -110,7 +112,7 @@
             padding:5px;
             margin:20px;  
             color:white;
-            height:50%;
+            height:60%;
             width:35%;
             border-radius:5px;
             background: rgba(51,65,106,.9);
@@ -128,34 +130,29 @@
           border-width: 0.9px;
         }
         #nameproject{
-            color:#3D4D83;
-          margin-top: 1.5em;
+            color:#fff;
+            text-shadow: 2px 2px black;
+            margin-top:230px;
             width:100%;
             height:50px;
-           text-align:center;
-           font-size:3em;
+            text-align:center;
+            font-size:3em;
+            
         }
-        #homelabe{
+        #homelabe,#contactlabe{
             color: white;
             
-        }#homelabe:hover{
+        }#homelabe:hover,#contactlabe:hover{
             color: black;
-            
         }
 
-        #contactlabe{
-            color:black;
-        }#contactlabe:hover{
-            color:white;
-        }
-
-
+       
         </style>
         </head >
 <body>
     <div class="page-header">
         <div class="logo">
-            <img style="width:245px; height:100px; float:left;" src="~/Image/Logo.png" />
+            <img style="width:245px; height:100px; float:left;padding:10px; " src="~/Image/Logo/logo ptt-01.png" />
         </div>
         <div class="menu">
 
@@ -163,7 +160,13 @@
                 <a id="homelabe" href="/Home/Homepage"> <label> หน้าแรก</label> </a>
             </div>
             <div id="contact">
-                <a id="contactlabe" href="/Home/Contact"> <label> ติดต่อเรา</label> </a>
+                <a id="contactlabe" href="#"> <label>จัดการข้อมูลผู้ใช้งาน</label> </a>
+            </div>
+            <div id="contact">
+                <a id="contactlabe" href="#"> <label> ตั้งค่าระบบ</label> </a>
+            </div>
+            <div id="contact">
+                <a id="contactlabe" href="#"> <label> ติดต่อเรา</label> </a>
             </div>
 
             <div id="search">
@@ -182,8 +185,8 @@
 
     <div class="mainmenu">
         <div class="screening" onclick="window.location.href = '/Home/Screening';">
-            Environmental Report Screening <hr id="hrr" />
-            <p>ระบบ Smart EIA Regulatory Screening 
+            <h5>Environmental Report Screening</h5>  <hr />
+            <p> ระบบ Smart EIA Regulatory Screening 
             เพื่อกลั่นกรองรายงานด้านสิ่งแวดล้อมที่ต้องจัดทำตามกฎหมาย
             ประกอบการขออนุญาติและวางแผนพัฒนาโครงการด้านพลังงานและโครงสร้างพื้นฐาน
             อาทิ รายงานการประเมินผลกระทบสิ่งแวดล้อม (IEE/EIA/EHIA)
@@ -191,14 +194,14 @@
             
         </div>
         <div class="regula" onclick="window.location.href = '/Home/Regulatory';">
-            Environmental Regulatory <hr id="hrr" />
+            <h5>Environmental Regulatory</h5> <hr />
             <p>ระบบตรวจสอบ กฎหมายและข้อกำหนดเชิงพื้นที่
             ที่เกี่ยวข้องกับการจัดการและอนุรักษ์สิ่งแวดล้อมของประเทศ 
             อาทิ พื้นที่เขตคุ้มครองสิ่งแวดล้อมพื้นที่อุทยานและป่าสงวนแห่งชาติ 
             พื้รที่เขตควบคุมมลพิษ เป็นต้น เพื่อประโยชน์สำหรับวางแผนพัฒนาโครงการอย่างยั่งยืน</p>
         </div>
         <div class="gis" onclick="window.location.href = '/Home/Gis';">
-            Environmental SMARTi Map <hr id="hrr" />
+            <h5>Environmental Smart iMap</h5> <hr />
             <p>ระบบสืบค้น ข้อมูลสารสนเทศภูมิศาสตร์ (Geographic Information System: GIS)
              ที่ประกอบด้วย ข้อมูลด้านสิ่งแวดล้อมและข้อมูลโครงสร้างพื้นฐานของประเทศ
             เพื่อนำไปใช้วางแผนและพิจารณาความเหมาะสมของพื้นที่ตั้งโครงการ 

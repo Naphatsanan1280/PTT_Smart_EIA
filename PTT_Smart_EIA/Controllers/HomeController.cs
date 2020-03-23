@@ -1,9 +1,9 @@
 ﻿using System.Web.Mvc;
-
 namespace PTT_Smart_EIA.Controllers
 {
     public class HomeController : Controller
     {
+        [HttpGet]
         public ActionResult Index()
         {
             return View();
@@ -11,15 +11,11 @@ namespace PTT_Smart_EIA.Controllers
 
         public ActionResult Login()
         {
-            ViewBag.Message = "Your application description page.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
 
@@ -43,10 +39,30 @@ namespace PTT_Smart_EIA.Controllers
 
         public ActionResult CalculateArea()
         {
+
             return View();
         }
 
+        public ActionResult LargeBuildings()
+        {
 
+            return View();
+        }
+
+        public ActionResult Hospital()
+        {
+            return View();
+        }
+
+        public ActionResult Hotel()
+        {
+            return View();
+        }
+
+        public ActionResult ResidentialBuildings()
+        {
+            return View();
+        }
 
     }
 }

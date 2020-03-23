@@ -124,6 +124,11 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\HospitalModel.cs" />
+    <Compile Include="Models\HotelModel.cs" />
+    <Compile Include="Models\LargeBuildingsModel.cs" />
+    <Compile Include="Models\PipeTransportModel.cs" />
+    <Compile Include="Models\ResidentialBuildingsModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -138,15 +143,38 @@
     <Content Include="Image\11-01.jpg" />
     <Content Include="Image\12-01.jpg" />
     <Content Include="Image\background%402x.png" />
+    <Content Include="Image\Backgroung\B10.jpg" />
     <Content Include="Image\document %281%29.png" />
     <Content Include="Image\document.png" />
     <Content Include="Image\footer.jpg" />
+    <Content Include="Image\icon\icon-01.jpg" />
+    <Content Include="Image\icon\icon-02.jpg" />
+    <Content Include="Image\icon\icon-03.jpg" />
+    <Content Include="Image\icon\icon-04.jpg" />
+    <Content Include="Image\icon\icon-05.jpg" />
+    <Content Include="Image\icon\icon-06.jpg" />
+    <Content Include="Image\icon\icon-07.jpg" />
+    <Content Include="Image\icon\icon-08.jpg" />
+    <Content Include="Image\icon\icon-09.jpg" />
+    <Content Include="Image\icon\icon-10.jpg" />
+    <Content Include="Image\icon\icon-11.jpg" />
+    <Content Include="Image\icon\icon-12.jpg" />
+    <Content Include="Image\icon\icon-13.jpg" />
+    <Content Include="Image\icon\icon-14.jpg" />
+    <Content Include="Image\icon\icon-15.jpg" />
+    <Content Include="Image\icon\icon-16.jpg" />
+    <Content Include="Image\icon\icon-17.jpg" />
+    <Content Include="Image\icon\icon-18.jpg" />
+    <Content Include="Image\icon\icon-19.jpg" />
     <Content Include="Image\img.jpg" />
     <Content Include="Image\Logo.png" />
+    <Content Include="Image\logo11.png" />
+    <Content Include="Image\Logo\logo ptt-01.png" />
     <Content Include="Image\picture.png" />
     <Content Include="Image\bG.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -180,11 +208,15 @@
     <Content Include="Views\Home\Gis.cshtml" />
     <Content Include="Views\Home\CalculateArea.cshtml" />
     <Content Include="Views\Shared\_LayoutPageMap1.cshtml" />
+    <Content Include="Views\Home\LargeBuildings.cshtml" />
+    <Content Include="Views\Home\Hospital.cshtml" />
+    <Content Include="Views\Home\Hotel.cshtml" />
+    <Content Include="Views\Home\ResidentialBuildings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
     <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\LargeBuildings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
