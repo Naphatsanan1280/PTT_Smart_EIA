@@ -1,0 +1,537 @@
+﻿
+@{
+    ViewBag.Title = "PipelineTransportation";
+    Layout = "~/Views/Shared/_LayoutContentLawEIA.cshtml";
+}
+
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd33TLAVehao--qEJ9u7j7ZNSjN1315C0&callback=initMap"
+                async defer></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+        <style>
+            .map {
+                background-color: #fff;
+                width: 100%;
+                padding: 5px;
+                height: 700px;
+                float: left;
+            }
+
+            #map {
+                width: 100%;
+                height: 100%;
+            }
+
+            #Resulte, .GasSystem, .status, .pressure, .size, .area, .riverarea {
+                display: none;
+            }
+        </style>
+
+    </head>
+<body onload="initMap()">
+    <div class="xxx" style="padding: 5px 0px 5px 5px; display: flex; flex-wrap:wrap;">
+        <div class="header-banner">
+            <img src="@Url.Content("~/Content/template/")img/link-2.svg" alt="" width="90px" height="90px">
+            <div class="btx">
+                <p>
+                    2. โครงการระบบขนส่งปิโตรเลียมและน้ำมันเชื้อเพลิงทางท่อ
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="contain-index" style="padding: 15px 0px; background-color: #e7eef1; overflow-x: hidden;">
+        <div class="row" style=" margin-right: 0px;margin-left: 0px;">
+            <div class="col-lg-12 nopadding">
+                <span class="ss-btn" onclick="ss_l_menu()"><i class="fas fa-chevron-right"></i></span>
+                <div class="l-menu bg-gg nopadding">
+                    <div class="data-col">
+                        <p class="ddda">
+                            1.ระบุที่ตั้งโครงการ
+                        </p>
+                        <div class="pp-list">
+                            <div class="list-p" onclick="sliderr(1)">
+                                <p class="hh">
+                                    พิกัดที่ตั้ง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-1">
+                                <div class="sl-input" id="sd-1">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                    
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(2)">
+                                <p class="hh">
+                                    กำหนดเอง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-2">
+                                <div class="sl-input" id="sd-2">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(3)">
+                                <p class="hh">
+                                    ตำแหน่งจากข้อมูล kmz ไฟล์
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-3">
+                                <div class="sl-input" id="sd-3">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(4)">
+                                <p class="hh">
+                                    ไม่ระบุที่ตั้งโครงการ
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-4">
+                                <div class="sl-input" id="sd-4">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="map">
+                    <div id="map"></div>
+                </div>
+
+                <span class="ss-r-btn" onclick="ss_r_menu()" style="background-color: #e7eef1; color: #000;"><i class="fas fa-chevron-left"></i></span>
+                <div class="r-menu nopadding ">
+                    <div class="data-col">
+                        <div class="specify">
+                            <p class="ddda" style="margin-top: 10px;">
+                                2.ระบุรายละเอียดโครงการ
+                            </p>
+                            <div class="type">
+                                <p>ประเภทปิโตรเลียม</p>
+                                <select id="selecttypes" class="form-control">
+                                    <option value="none" selected>--เลือกประเภทปิโตรเลียม--</option>
+                                    <option value="ng">ก๊าซธรรมชาติ (Natural Gas)</option>
+                                    <option value="ngl"> ก๊าซปิโตรเลียมเหลว (Liquefied Petroleum Gas) </option>
+                                    <option value="lpg">ก๊าซโซลีนธรรมชาติ (Natural Gasoline)  </option>
+                                    <option value="oil">น้ำมันเชื้อเพลิง (Fuel Oil)</option>
+                                    <option value="hydrocarbon">ปิโตรเลียมอื่น ๆ (Other Petroleum) </option>
+                                </select> <i class="fa fa-info-circle" data-toggle="tooltip" title="ตามกฎหมายว่าด้วยปิโตรเลียม"></i>
+                                <br />
+                                <button id="btntype">ตกลง</button> <hr />
+                            </div>
+
+                            <div class="GasSystem">
+                                <p>พื้นที่วางท่อ</p>
+                                <select id="selectGasSystem" class="form-control">
+                                    <option value="none" selected>--เลือกพื้นที่วางท่อ-</option>
+                                    <option value="ground">บนบก</option>
+                                    <option value="water">ในทะเล</option>
+                                </select><br />
+                                <button id="btnGasSystem">ตกลง</button> <hr />
+                            </div>
+
+                            <div class="status">
+                                <p>สถานะ</p>
+                                <select id="selectstatus" class="form-control">
+                                    <option value="none" selected>--เลือกสถานะ--</option>
+                                    <option value="gas">ก๊าซ (Gas) เช่น CNG NG </option>
+                                    <option value="liquid">ของเหลว (Liquid) เช่น LNG</option>
+                                </select> <br />
+                                <button id="btnstatus">ตกลง</button><hr />
+                            </div>
+
+                            <div class="pressure">
+                                <p>
+                                    ความดันใช้งานสูงสุด
+                                    (Maximum Operating Pressure; MOP)
+                                </p>
+                                <select id="selectpressure" class="form-control">
+                                    <option value="none" selected>--เลือกความดัน--</option>
+                                    <option value="1">น้อยกว่า 20 บาร์ (barg) หรือ เท่ากับ 20 บาร์ (barg)</option>
+                                    <option value="2">มากกว่า 20 บาร์ (barg)</option>
+                                </select>    <i class="fa fa-info-circle" data-toggle="tooltip" title="20 barg = 290 psig (1 barg = 14.5 psig)"></i>
+                                <br />
+                                <button id="btnpressure">ตกลง</button>
+                                <hr />
+                            </div>
+
+                            <div class="size">
+                                <p>
+                                    ขนาดเส้นผ่านศูนย์กลางของท่อ
+                                </p>
+                                <select id="selectsize" class="form-control">
+                                    <option value="" selected>--เลือกขนาดท่อ--</option>
+                                    <option value="1">น้อยกว่า  16 นิ้ว หรือ เท่ากับ 16 นิ้ว</option>
+                                    <option value="2">มากกว่า 16 นิ้ว</option>
+                                </select><i class="fa fa-info-circle" data-toggle="tooltip" title="Nominal Pipe Size "></i>
+                                <br />
+                                <button id="btnsize">ตกลง</button>
+                                <hr />
+                            </div>
+                            <div class="area">
+                                <p>
+                                    พื้นที่
+                                </p>
+                                <select id="selectarea" class="form-control">
+                                    <option value="none" selected>--เลือกเขตพื้นที่--</option>
+                                    <option value="in">แนวท่อทั้งหมดอยู่ในเขตนิคมอุตสาหกรรม</option>
+                                    <option value="out">แนวท่อทั้งหมดอยู่นอกเขตนิคมอุตสาหกรรม</option>
+                                </select><br />
+                                <button id="Btnarea"> ตกลง </button> <hr />
+                            </div>
+
+                            <div class="riverarea">
+                                <label>
+                                    พื้นที่ตั้ง
+                                </label>
+                                <select id="selectriverarea" class="form-control">
+                                    <option value="none" selected>--เลือกเขตพื้นที่ลุ่มน้ำ--</option>
+                                    <option value="y">อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1</option>
+                                    <option value="n">ไม่อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1</option>
+                                </select><br />
+                                <button id="Btnriverarea"> ตกลง </button> <hr />
+                            </div>
+                        </div>
+                        <div id="Resulte">
+                            <hr />
+                            <button onclick="hideresulte()">&uarr; back</button>
+                            <hr />
+                            <p>โครงการ กิจการ หรือการดำเนิดการ <u style="color:red;">เข้าข่าย</u> ต้องจัดทำรายงานด้านสิ่งแวดล้อม</p>
+                            <hr />
+                            <p>ประเภท</p>
+                            <p id="labeltype">
+                                EHIA
+                            </p>
+                            <hr />
+                            <p>เสนอต่อ</p>
+                            <p id="labeloffer">สผ.</p>
+                            <hr />
+                            <p>ตามกฎหมาย</p>
+                            <p id="labellaw">เรื่อง...</p>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-banner">
+        <div class="ffff">
+        </div>
+    </div>
+</body>
+
+<script>
+    /*map*/
+    var map;
+    function initMap() {
+        var latlng = new google.maps.LatLng(13.7651624, 100.893642);
+        var myOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+    }
+    /*slide*/
+    function sliderr(n) {
+        var dis = $('#ss-' + n).css('display');
+        console.log(dis);
+        if (dis == 'none') {
+            $("#ss-" + n).css("display", "block");
+            $("#sd-" + n).css("height", "auto");
+
+        } else {
+            $("#ss-" + n).css("display", "none");
+            $("#sd-" + n).css("height", "0px");
+        }
+    }
+    function ss_l_menu() {
+        if ($(".ss-btn").hasClass("ww-100")) {
+            $(".ss-btn").removeClass("ww-100");
+            $(".l-menu").animate({ "left": "-400px" }, 300, "swing");
+            $(".ss-btn").animate({ "left": "0px" }, 300, "swing");
+            $(".ss-btn").html('<i class="fas fa-chevron-right"></i>')
+        } else {
+            $(".ss-btn").addClass("ww-100");
+            $(".l-menu").animate({ "left": "0px" }, 300, "swing");
+            $(".ss-btn").animate({ "left": "360px" }, 300, "swing");
+            $(".ss-btn").html('<i class="fas fa-chevron-left"></i>')
+        }
+
+    }
+    function ss_r_menu() {
+        if ($(".ss-r-btn").hasClass("ww-100")) {
+            $(".ss-r-btn").removeClass("ww-100");
+            $(".r-menu").animate({ "right": "-400px" }, 300, "swing");
+            $(".ss-r-btn").animate({ "right": "0px" }, 300, "swing");
+            $(".ss-r-btn").html('<i class="fas fa-chevron-left"></i>')
+        } else {
+            $(".ss-r-btn").addClass("ww-100");
+            $(".r-menu").animate({ "right": "0px" }, 300, "swing");
+            $(".ss-r-btn").animate({ "right": "360px" }, 300, "swing");
+            $(".ss-r-btn").html('<i class="fas fa-chevron-right"></i>')
+        }
+
+    }
+    function hideresulte() {
+        $("#Resulte").hide();
+        $(".specify").show();
+    }
+    /*flow*/
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+       /*
+         $("#selecttypes").change(function () {
+                $(this).find("option:selected").each(function () {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".GasSystem").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                        $(".pressure").not("." + optionValue).hide();
+                        
+                        
+                    } else {
+                        $(".GasSystem").hide();
+                    }
+                });
+         }).change();
+
+         $(".GasSystem").change(function () {
+                $(this).find("option:selected").each(function () {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".status").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                       
+                    } else {
+                        $(".status").hide();
+                    }
+                });
+            }).change();
+
+         $(".status").change(function () {
+                $(this).find("option:selected").each(function () {
+                    var optionValue = $(this).attr("value");
+                    if (optionValue) {
+                        $(".pressure").not("." + optionValue).hide();
+                        $("." + optionValue).show();
+                     
+                    } else {
+                        $(".pressure").hide();
+                    }
+                });
+         }).change();*/
+    });
+    $(document).ready(function () {
+
+        $("#btntype").click(function () {
+            var type = $('#selecttypes').find(":selected").val();
+            if (type == "ng") {
+                $(".GasSystem").show();
+                $("#btnGasSystem").click(function () {
+                    var gassystem = $('#selectGasSystem').find(":selected").val();
+                    if (gassystem == "ground") {
+                        $(".status").show();
+
+                        $("#btnstatus").click(function () {
+                               var status = $('#selectstatus').find(":selected").val();
+                                if (status == "liquid") {
+                                     $(".pressure").hide();
+                                     $(".specify").hide();
+                                     $("#Resulte").show();
+                                     document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                     document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                     document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+                                }
+                                else {
+                                    $(".pressure").show();
+                                     $("#btnpressure").click(function () {
+                                         var pressure = $('#selectpressure').find(":selected").val();
+                                         if (pressure == "1" ) {
+                                            $(".size").show();
+                                            $("#btnsize").click(function () {
+                                            var size = $('#selectsize').find(":selected").val();
+                                                if (size == "1") {/*size <= 16*/
+                                                    $(".riverarea").show();
+                                                    $(".area").hide();
+                                                    $("#Btnriverarea").click(function () {
+                                                        var riverarea = $('#selectriverarea').find(":selected").val();
+                                                        if (riverarea =="y") {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+                                                        } else {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานด้านสิ่งแวดล้อม (ER)";
+                                                             document.getElementById('labeloffer').innerText = "กรมธุรกิจพลังงาน (ธพ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงพลังงาน เรื่อง กำหนดประเภท และขนาดของระบบการขนส่งก๊าซธรรมชาติทางท่อและหลักเกณฑ์ วิธีการฯ จัดทำ ER" + "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 4)";
+        
+                                                        }
+                                                    });
+                                                } 
+                                                    else if (size == "2") {/*size > 16*/
+                                                    $(".riverarea").hide();
+                                                    $(".area").show();
+                                                     $("#Btnarea").click(function () {
+                                                        var area = $('#selectarea').find(":selected").val();
+                                                         if (area == "in") {
+                                                             $(".riverarea").show();
+                                                             $("#Btnriverarea").click(function () {
+                                                              var riverarea = $('#selectriverarea').find(":selected").val();
+                                                              if (riverarea =="y") {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+                                                        } else {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานด้านสิ่งแวดล้อม (ER)";
+                                                             document.getElementById('labeloffer').innerText = "กรมธุรกิจพลังงาน (ธพ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงพลังงาน เรื่อง กำหนดประเภท และขนาดของระบบการขนส่งก๊าซธรรมชาติทางท่อและหลักเกณฑ์ วิธีการฯ จัดทำ ER" + "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 4)";
+        
+                                                        }
+                                                             });
+                                                          
+                                                         } else {
+                                                             $(".riverarea").hide();
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+                                                        }
+                                                    });
+                                                /*********************/
+
+
+                                                }
+                                            });
+
+                                         }
+                                         else {
+                                             alert(pressure);
+                                             $(".size").show();
+                                             $("#btnsize").click(function () {
+                                                    var size = $('#selectsize').find(":selected").val();
+                                                     if (size == "1" || size == "2") {
+                                                         $(".riverarea").hide();
+                                                         $(".area").show();
+                                                          $("#Btnarea").click(function () {
+                                                        var area = $('#selectarea').find(":selected").val();
+                                                         if (area == "in") {
+                                                             $(".riverarea").show();
+                                                             $("#Btnriverarea").click(function () {
+                                                              var riverarea = $('#selectriverarea').find(":selected").val();
+                                                              if (riverarea =="y") {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+                                                        } else {
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานด้านสิ่งแวดล้อม (ER)";
+                                                             document.getElementById('labeloffer').innerText = "กรมธุรกิจพลังงาน (ธพ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงพลังงาน เรื่อง กำหนดประเภท และขนาดของระบบการขนส่งก๊าซธรรมชาติทางท่อและหลักเกณฑ์ วิธีการฯ จัดทำ ER" + "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 4)";
+        
+                                                        }
+                                                             });
+                                                          
+                                                         } else {
+                                                             $(".riverarea").hide();
+                                                             $(".specify").hide();
+                                                             $("#Resulte").show();
+                                                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+                                                        }
+                                                    });
+                                            
+                                                     } else {
+                                                         alert(size);
+                                               
+                                                     }
+                                             });
+                                             
+                                            
+                                        }
+                                    });
+                                }
+                        });
+                         
+                    }
+
+                    else {
+                        $(".GasSystem").hide();
+                        $(".pressure").hide();
+                        $(".size").hide();
+                        $(".status").hide();
+                        $(".area").hide();
+                        $(".riverarea").hide();
+                         $(".specify").hide();
+                         $("#Resulte").show();
+                         document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                         document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                         document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+                    }
+                });
+            } else {
+                        $(".GasSystem").hide();
+                        $(".pressure").hide();
+                        $(".size").hide();
+                        $(".status").hide();
+                        $(".area").hide();
+                        $(".riverarea").hide();
+                         $(".specify").hide();
+                         $("#Resulte").show();
+                         document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                         document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                         document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+        
+            }        
+    });
+    });
+   
+</script>
+
+
+

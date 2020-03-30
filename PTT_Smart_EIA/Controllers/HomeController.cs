@@ -14,6 +14,11 @@ namespace PTT_Smart_EIA.Controllers
             return View();
         }
 
+        public ActionResult Register()
+        {
+            return View();
+        }
+
         public ActionResult Contact()
         {
             return View();
@@ -23,12 +28,17 @@ namespace PTT_Smart_EIA.Controllers
         {
             return View();
         }
-        public ActionResult Screening()
+
+        public ActionResult MenuProject()
+        {
+            return View();
+        }
+        public ActionResult EnvironmentalRegulartory()
         {
             return View();
         }
 
-        public ActionResult Regulatory()
+        public ActionResult EnvironmentalSmartImap()
         {
             return View();
         }
@@ -37,7 +47,7 @@ namespace PTT_Smart_EIA.Controllers
             return View();
         }
 
-        public ActionResult CalculateArea()
+        public ActionResult PipelineTransportation()
         {
 
             return View();
@@ -63,6 +73,17 @@ namespace PTT_Smart_EIA.Controllers
         {
             return View();
         }
-
+        public ActionResult Industrialestate()
+        {
+            return View();
+        }
+       public ActionResult Wasteadjustment()
+        {
+            return View();
+        }
+        public ActionResult Landallocation()
+        {
+            return View();
+        }
     }
 }

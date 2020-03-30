@@ -1,74 +1,66 @@
 ﻿@{
     ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutLogin.cshtml";
 }
-<head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <style>
-        body {
-            font-family: "DBSathornMedium","Trebuchet MS", sans-serif;
-            font-size: 22px;
-            background-image: url(../../Image/11-01.jpg);
-            background-size: cover;
-        }
+    <body>
+        <div class="row mr-0">
+            <div class="col-12 w-100">
+                <div class="login-section">
+                    <div class="sys-logo">
+                        <img src="@Url.Content("~/Content/template/")img/logo.png" alt="">
+                    </div>
+                    <div class="sys-text">
+                        <p class="text-porp">
+                            Smart EIA Regulatory Screening System
+                        </p>
+                    </div>
+                    <div class="login-header">
+                        <p>
+                            ลงชื่อเข้าใช้งาน
+                        </p>
+                    </div>
+                    <div class="login-box">
+                        <div class="user-form">
+                            <div class="form-text">
+                                <i class="fas fa-user"></i>
+                                <p>ชื่อผู้ใช้</p>
+                            </div>
+                            <div class="form-input">
+                                <input type="text" name="" id="">
+                            </div>
+                        </div>
+                        <div class="user-form">
+                            <div class="form-text">
+                                <i class="fas fa-lock"></i>
+                                <p>รหัสผ่าน</p>
+                            </div>
+                            <div class="form-input">
+                                <input type="password" name="" id="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="prop-login">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input checker" name="" id="" value="checkedValue" checked>
+                                จำรหัสผ่าน
+                            </label>
+                        </div>
+                        <div class="forget-link">
+                            <a href="/Home/Register" class="fg-pass">ลงทะเบียนผู้งาน</a>
+                            <br>
+                            <a href="" class="fg-pass">*สำหรับบุคคลภายนอก ปตท.</a>
+                        </div>
 
-        .imgcontainer {
-            text-align: center;
-            margin: 24px 0 12px 0;
-        }
+                    </div>
+                    <div class="login-btn">
+                        <a href="/Home/Homepage"><button>เข้าสู่ระบบ</button></a>
+                    </div>
+                </div>
 
-        #login {
-            text-align: center;
-            margin: 24px 0 12px 0;
-            font-size: 20px;
-        }#loginn{
-             text-align: center;
-            margin: 24px 0 12px 0;
-            font-size: 20px;
-         }
-    </style>
-</head>
-<body>
-    <div>
 
-    </div>
-
-    <div class="Login">
-        <div class="imgcontainer">
-            <img src="~/Image/Logo.png" />
-        </div>
-
-        <div style="width: 100%; text-align: center;" >
-            <h1 style="width:100%; color:darkblue; height:10%; text-align:center; margin-top:3%; "> Smart EIA Regulatory Screening System </h1>
-        </div>
-
-        <div>
-            <h1 style="width:100%; color:darkblue; height:10%; text-align:center; "> ลงชื่อเข้าใช้งาน </h1>
-        </div>
-
-        <div id="login">
-            <div style=" width:30%; text-align: center; display: inline-block; margin: 0 auto; padding: 3px; border-radius:12px; color:white; background: linear-gradient(to right, rgba(38,33,102,1), rgba(225,255,255,1) );">
-                <br />
-                <label id="l1">ชื่อผู้ใช้ :  <input type="text" />  </label><br />
-                <label id="l1">รหัสผ่าน : <input type="text" />  </label><br />
             </div>
-            <br />
-            <div id="loginn" style="width:100%;">
-                <label>
-                    <input type="checkbox"/> จำรหัสผ่าน
-                </label>
-                <label >
-                    ลงทะเบียนผู้ใช้งานระบบ 
-                </label>
-            </div>
-            <button class="w3-button w3-blue" style="border-radius:12px;" onclick="window.location.href = '/Home/Homepage';">
-                Login
-            </button>
         </div>
-
-
-    </div>
-</body>
+    </body>
 

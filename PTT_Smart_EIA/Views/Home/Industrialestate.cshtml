@@ -1,0 +1,386 @@
+﻿
+@{
+    ViewBag.Title = "Industrialestate";
+    
+     Layout = "~/Views/Shared/_LayoutContentLawEIA.cshtml";
+}
+    <head>
+     
+        <style>
+            .map {
+                background-color: #fff;
+                width: 100%;
+                padding: 5px;
+                height: 700px;
+                float: left;
+            }
+            #map {
+                width: 100%;
+                height: 100%;
+            }
+            #Factorynumber,#IndustryStyle,#support,#Resulte{
+                display:none;
+            }
+        </style>
+
+    </head>
+    <body onload="initMap()">
+        <div class="xxx" style="padding: 5px 0px 5px 5px; display: flex; flex-wrap:wrap;">
+            <div class="header-banner">
+                <img src="@Url.Content("~/Content/template/")img/link-3.svg" alt="" width="90px" height="90px">
+                <div class="btx">
+                    <p>
+                        3. นิคมอุตสาหกรรม
+                    </p>
+
+                </div>
+            </div>
+        </div>
+        <div class="contain-index" style="padding: 15px 0px; background-color: #e7eef1; overflow-x: hidden;">
+            <div class="row" style=" margin-right: 0px;margin-left: 0px;">
+                <div class="col-lg-12 nopadding">
+                    <span class="ss-btn" onclick="ss_l_menu()"><i class="fas fa-chevron-right"></i></span>
+                    <div class="l-menu bg-gg nopadding">
+                        <div class="data-col">
+                            <p class="ddda">
+                               1.ระบุที่ตั้งโครงการ
+                            </p>
+                            <div class="pp-list">
+                                <div class="list-p" onclick="sliderr(1)">
+                                    <p class="hh">
+                                        พิกัดที่ตั้ง
+                                    </p>
+                                </div>
+                                <div class="dt-slide" id="ss-1">
+                                    <div class="sl-input" id="sd-1">
+                                        <button>Add placemark</button>
+                                        <button>Draw line or shape</button>
+                                        <textarea class="txa-50" rows="5" cols="50">
+                                    
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="list-p" onclick="sliderr(2)">
+                                    <p class="hh">
+                                        กำหนดเอง
+                                    </p>
+                                </div>
+                                <div class="dt-slide" id="ss-2">
+                                    <div class="sl-input" id="sd-2">
+                                        <button>Add placemark</button>
+                                        <button>Draw line or shape</button>
+                                        <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="list-p" onclick="sliderr(3)">
+                                    <p class="hh">
+                                        ตำแหน่งจากข้อมูล kmz ไฟล์
+                                    </p>
+                                </div>
+                                <div class="dt-slide" id="ss-3">
+                                    <div class="sl-input" id="sd-3">
+                                        <button>Add placemark</button>
+                                        <button>Draw line or shape</button>
+                                        <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                    </div>
+                                </div>
+                                <div class="list-p" onclick="sliderr(4)">
+                                    <p class="hh">
+                                        ไม่ระบุที่ตั้งโครงการ
+                                    </p>
+                                </div>
+                                <div class="dt-slide" id="ss-4">
+                                    <div class="sl-input" id="sd-4">
+                                        <button>Add placemark</button>
+                                        <button>Draw line or shape</button>
+                                        <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="map">
+                        <div id="map"></div>
+                    </div>
+
+                    <span class="ss-r-btn" onclick="ss_r_menu()" style="background-color: #e7eef1; color: #000;"><i class="fas fa-chevron-left"></i></span>
+                    <div class="r-menu nopadding ">
+                        <div class="data-col">
+                            <div class="specify">
+                                <p class="ddda" style="margin-top: 10px;">
+                                    2.ระบุรายละเอียดโครงการ
+                                </p>
+                                <div id="TypeConstruction">
+                                    <p>
+                                        ลักษณะการก่อสร้าง/ขยาย
+                                    </p>
+                                    <select name="" id="selectTypeConstruction" class="form-control" placeholder="เลือกลักษณะการก่อสร้าง/ขยาย">
+                                        <option value="construction">ก่อสร้างใหม่</option>
+                                        <option value="extend">ขยายนิคม</option>
+                                    </select>
+                                    <div>
+                                        <button id="btnTypeConstruction">ตกลง</button>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div id="support">
+                                    <p>
+                                        จัดตั้งหรือขยายเพื่อรองรับอุตสาหกรรมปิโตรเคมี
+                                        หรืออุตสาหกรรมถลุงแร่เหล็ก
+                                    </p>
+                                    <select name="" id="selectsupport" class="form-control" placeholder="เลือกลักษณะการก่อสร้าง/ขยาย">
+                                        <option value="yes">ใช่</option>
+                                        <option value="no">ไม่ใช่</option>
+                                    </select>
+                                    <div>
+                                        <button id="btnsupport">ตกลง</button>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div id="Factorynumber">
+                                    <p>
+                                        จำนวนโรงงาน
+                                    </p>
+                                    <select name="" id="selectFactorynumber" class="form-control" placeholder="เลือกลักษณะการก่อสร้าง/ขยาย">
+                                        <option value="one">1 โรงงาน</option>
+                                        <option value="more">มากกว่า 1 โรงงาน</option>
+                                    </select>
+                                    <div>
+                                        <button id="btnFactorynumber">ตกลง</button>
+                                    </div>
+                                    <hr />
+                                </div>
+                                <div id="IndustryStyle">
+                                    <p>
+                                        ลักษณะอุตสาหกรรม
+                                    </p>
+                                    <select name="" id="selectIndustryStyle" class="form-control" placeholder="เลือกลักษณะการก่อสร้าง/ขยาย">
+                                        <option value="1">
+                                                อุตสาหกรรมปิโตรเคมี
+                                                ขั้นต้นทุกขนาดหรือที่มีการขยายกำลังการผลิตตั้งแต่
+                                                ร้อยละ 35 ของกำลังการผลิตเดิมขึ้นไป
+                                        </option>
+                                        <option value="2">
+                                            อุตสาหกรรมปิโตรเคมีขั้นกลาง ที่ผลิตสารเคมีหรือใช้วัตถุดิบที่เป็นสารก่อมะเร็งกลุ่ม 1 ที่
+                                            มีกำลังการผลิตตั้งแต่ 100 ตัน/วัน ขึ้นไป
+                                            ขยายกำลังการผลิตรวมกันตั้งแต่ 100 ตัน/วันขึ้นไป
+                                        </option>
+                                        <option value="3">
+                                            อุตสาหกรรมปิโตรเคมีขั้นกลาง ที่ผลิตสารเคมีหรือใช้วัตถุดิบที่เป็นสารก่อมะเร็งกลุ่ม 2A ที่
+                                            มีกำลังการผลิตตั้งแต่ 700 ตัน/วัน ขึ้นไป
+                                            ขยายกำลังการผลิตรวมกันตั้งแต่ 700 ตัน/วันขึ้นไป
+                                        </option>
+                                        <option value="4">
+                                            อุตสาหกรรมถลุงแร่เหล็ก
+                                            ที่มีปริมาณแร่ป้อนเข้าสู่กระบวนการผลิต ตั้งแต่ 5,000 ตัน/วัน ขึ้นไป หรือ
+                                            ที่มีปริมาณแร่ป้อนเข้าสู่กระบวนการผลิต รวมกันตั้งแต่ 5,000 ตัน/วัน ขึ้นไป
+                                        </option>
+                                        <option value="5">อุตสาหกรรมถลุงแร่เหล็กที่มีการผลิตถ่าน coke หรือที่มีกระบวนการ sintering ทุกขนาด</option>
+                                        <option value="6">อื่นๆ</option>
+                                    </select>
+                                    <div>
+                                    <button id="btnIndustryStyle">ตกลง</button>
+                                     </div>
+                                    <hr />
+                                </div>
+                                
+                            </div>
+                            <div id="Resulte">
+                                <button onclick="hideresulte()">&uarr; back</button>
+                               
+                                <p>โครงการ กิจการ หรือการดำเนิดการ <u style="color:red;">เข้าข่าย</u> ต้องจัดทำรายงานด้านสิ่งแวดล้อม</p>
+                                <hr />
+                                <p>ประเภท</p>
+                                <p id="labeltype">
+                                    EHIA
+                                </p>
+                                <hr />
+                                <p>เสนอต่อ</p>
+                                <p id="labeloffer">สผ.</p>
+                                <hr />
+                                <p>ตามกฎหมาย</p>
+                                <p id="labellaw">เรื่อง...</p>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-banner">
+            <div class="ffff">
+
+            </div>
+        </div>
+    </body>
+
+    <script>
+        /*map*/
+        var map;
+        function initMap() {
+            var latlng = new google.maps.LatLng(13.7651624, 100.893642);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        }
+         /*slide*/
+        function sliderr(n) {
+            var dis = $('#ss-' + n).css('display');
+            console.log(dis);
+            if (dis == 'none') {
+                $("#ss-" + n).css("display", "block");
+                $("#sd-" + n).css("height", "auto");
+
+            } else {
+                $("#ss-" + n).css("display", "none");
+                $("#sd-" + n).css("height", "0px");
+            }
+        }
+        function ss_l_menu() {
+            if ($(".ss-btn").hasClass("ww-100")) {
+                $(".ss-btn").removeClass("ww-100");
+                $(".l-menu").animate({ "left": "-400px" }, 300, "swing");
+                $(".ss-btn").animate({ "left": "0px" }, 300, "swing");
+                $(".ss-btn").html('<i class="fas fa-chevron-right"></i>')
+            } else {
+                $(".ss-btn").addClass("ww-100");
+                $(".l-menu").animate({ "left": "0px" }, 300, "swing");
+                $(".ss-btn").animate({ "left": "360px" }, 300, "swing");
+                $(".ss-btn").html('<i class="fas fa-chevron-left"></i>')
+            }
+
+        }
+        function ss_r_menu() {
+            if ($(".ss-r-btn").hasClass("ww-100")) {
+                $(".ss-r-btn").removeClass("ww-100");
+                $(".r-menu").animate({ "right": "-400px" }, 300, "swing");
+                $(".ss-r-btn").animate({ "right": "0px" }, 300, "swing");
+                $(".ss-r-btn").html('<i class="fas fa-chevron-left"></i>')
+            } else {
+                $(".ss-r-btn").addClass("ww-100");
+                $(".r-menu").animate({ "right": "0px" }, 300, "swing");
+                $(".ss-r-btn").animate({ "right": "360px" }, 300, "swing");
+                $(".ss-r-btn").html('<i class="fas fa-chevron-right"></i>')
+            }
+
+        }
+        function hideresulte() {
+            $("#Resulte").hide();
+            $(".specify").show();
+        }
+
+        /*flow*/
+        $(document).ready(function () {
+            $("#btnTypeConstruction").click(function () {
+                $("#Resulte").hide();
+                $("#IndustryStyle").hide();
+                 $("#Factorynumber").hide();
+                var typeconstruct = $('#selectTypeConstruction').find(":selected").val();
+                /*ขยาย*/if (typeconstruct == "extend" ) {
+                    $("#support").show();
+                     $("#btnsupport").click(function () {
+                        var support = $('#selectsupport').find(":selected").val();
+                        if (support == "yes"/*รองรับ*/) {
+                            $("#IndustryStyle").show();
+                            $("#btnIndustryStyle").click(function () {
+                                var IndustryStyle = $('#selectIndustryStyle').find(":selected").val();
+                                if (IndustryStyle == "6" /*อื่นๆ*/) {
+                                    $(".specify").hide();
+                                    $("#Resulte").show();
+                                    document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                    document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                    document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                } else {
+                                    $(".specify").hide();
+                                    $("#Resulte").show();
+                                    document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                    document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                    document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+                                }
+                            });
+                        }
+                        else {/*ไม่รองรับ*/
+                            $(".specify").hide();
+                             $("#IndustryStyle").hide();
+                            $("#Resulte").show();
+                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                        }
+                     });
+                    
+                }
+                /*ก่อสร้างใหม่*/else {
+                    $("#support").show();
+                     $("#Resulte").hide();
+                     $("#IndustryStyle").hide();
+                    $("#Factorynumber").hide();
+                    $("#btnsupport").click(function () {
+                        var support = $('#selectsupport').find(":selected").val();
+                         if (support == "yes" /*รองรับ*/) {
+                             $("#Factorynumber").show();
+                            $("#IndustryStyle").hide();
+                            $("#btnFactorynumber").click(function () {
+                                var Factorynumber = $('#selectFactorynumber').find(":selected").val();
+                                if (Factorynumber == "one" /*1 โรงงาน*/) {
+                                     $(".specify").hide();
+                                     $("#IndustryStyle").hide();
+                                     $("#Resulte").show();
+                                     document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                     document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                     document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+                                }
+                              /*มากกว่า 1 โรงงาน*/  else {
+                                    $("#IndustryStyle").show();
+                                    $("#btnIndustryStyle").click(function () {
+                                        var IndustryStyle = $('#selectIndustryStyle').find(":selected").val();
+                                        if (IndustryStyle == "6" /*อื่นๆ*/) {
+                                            $(".specify").hide();
+                                            $("#Resulte").show();
+                                            document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                            document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                            document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                        } else {
+                                            $(".specify").hide();
+                                            $("#Resulte").show();
+                                            document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                            document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                            document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+                                        }
+                                    });
+                                }
+                            });
+
+                        }
+                        else {
+                             $(".specify").hide();
+                            $("#IndustryStyle").hide();
+                             $("#Factorynumber").hide();
+                            $("#Resulte").show();
+                             document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                             document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                             document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+

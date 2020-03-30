@@ -1,0 +1,993 @@
+﻿
+@{
+    ViewBag.Title = "Wasteadjustment";
+    Layout = "~/Views/Shared/_LayoutContentLawEIA.cshtml";
+}
+
+<head>
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDd33TLAVehao--qEJ9u7j7ZNSjN1315C0&callback=initMap"
+            async defer></script>
+    <style>
+        .map {
+            background-color: #fff;
+            width: 100%;
+            padding: 5px;
+            height: 700px;
+            float: left;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+       #protectarea5,#Resulte,#Usedmaterials,#dangertrash,#Removetype,#typeKiln,#Cementkiln,#Wastewater,#Ability,#amount,#protectarea1,#protectarea2,#protectarea3,#protectarea4,#riverarea {
+            display: none;
+        }
+    </style>
+
+</head>
+<body onload="initMap()">
+    <div class="xxx" style="padding: 5px 0px 5px 5px; display: flex; flex-wrap:wrap;">
+        <div class="header-banner">
+            <img src="@Url.Content("~/Content/template/")img/link-6.svg" alt="" width="90px" height="90px">
+            <div class="btx">
+                <p>
+                    6. โรงงานปรับคุณภาพของเสียรวมเฉพาะสิ่งปฏิกูลหรือวัสดุที่ไม่ใช้แล้ว
+                </p>
+
+            </div>
+        </div>
+    </div>
+    <div class="contain-index" style="padding: 15px 0px; background-color: #e7eef1; overflow-x: hidden;">
+        <div class="row" style=" margin-right: 0px;margin-left: 0px;">
+            <div class="col-lg-12 nopadding">
+                <span class="ss-btn" onclick="ss_l_menu()"><i class="fas fa-chevron-right"></i></span>
+                <div class="l-menu bg-gg nopadding">
+                    <div class="data-col">
+                        <p class="ddda">
+                            1.ระบุที่ตั้งโครงการ
+                        </p>
+                        <div class="pp-list">
+                            <div class="list-p" onclick="sliderr(1)">
+                                <p class="hh">
+                                    พิกัดที่ตั้ง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-1">
+                                <div class="sl-input" id="sd-1">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                    
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(2)">
+                                <p class="hh">
+                                    กำหนดเอง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-2">
+                                <div class="sl-input" id="sd-2">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(3)">
+                                <p class="hh">
+                                    ตำแหน่งจากข้อมูล kmz ไฟล์
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-3">
+                                <div class="sl-input" id="sd-3">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(4)">
+                                <p class="hh">
+                                    ไม่ระบุที่ตั้งโครงการ
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-4">
+                                <div class="sl-input" id="sd-4">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="map">
+                    <div id="map"></div>
+                </div>
+
+                <span class="ss-r-btn" onclick="ss_r_menu()" style="background-color: #e7eef1; color: #000;"><i class="fas fa-chevron-left"></i></span>
+                <div class="r-menu nopadding ">
+                    <div class="data-col">
+                        <div class="specify">
+                            <p class="ddda" style="margin-top: 10px;">
+                                2.ระบุรายละเอียดโครงการ
+                            </p>
+                            <div id="Type">
+                                <p>
+                                    ประเภทกิจการ
+                                </p>
+                                <select name="" id="selectType" class="form-control">
+                                    <option value="a">โรงงานปรับคุณภาพของเสียรวมชุมชน</option>
+                                    <option value="b">สถานที่ที่ใช้ในการกำจัดขยะมูลฝอย</option>
+                                    <option value="c"> โรงงานประกอบกิจการเกี่ยวกับการคัดแยกหรือการฝังกลบสิ่งปฏิกูลหรือวัสดุไม่ใช้แล้วในชุมชน</option>
+                                    <option value="d">โรงงานปรับคุณภาพของเสียรวม (รง. 101) ได้แก่ โรงงานบำบัดน้ำเสียรวม โรงงานเผาของเสียรวม</option>
+                                    <option value="e">โรงงานประกอบกิจการเกี่ยวกับการฝังกลบ (รง. 105)</option>
+                                </select>
+                                <div>
+                                    <button id="btnType">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="Usedmaterials">
+                                <p>
+                                    ใช้กำจัดสิ่งปฏิกูลหรือวัสดุไม่ใช้แล้ว
+                                    ตามกฎหมายว่าด้วยโรงงาน*
+                                </p>
+                                <select name="" id="selectUsedmaterials" class="form-control">
+                                    <option value="yes">ใช่</option>
+                                    <option value="no">ไม่ใช่</option>
+                                </select>
+                                <div>
+                                    <button id="btnUsedmaterials">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="dangertrash">
+                                <p>
+                                    ใช่/ไม่ใช่ขยะอันตราย
+                                </p>
+                                <select name="" id="selectdangertrash" class="form-control">
+                                    <option value="yes">ใช่</option>
+                                    <option value="no">ไม่ใช่</option>
+                                </select>
+                                <div>
+                                    <button id="btndangertrash">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="Removetype">
+                                <p>
+                                    ประเภทการกำจัด
+                                </p>
+                                <select name="" id="selectRemovetype" class="form-control">
+                                    <option value="burn">เผา</option>
+                                    <option value="Landfill">ฝั่งกลบ</option>
+                                </select>
+                                <div>
+                                    <button id="btnRemovetype">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="typeKiln">
+                                <p>
+                                    ประเภทเตาเผา
+                                </p>
+                                <select name="" id="selecttypeKiln" class="form-control">
+                                    <option value="join">เตาเผาร่วม (Co-incineration)</option>
+                                    <option value="only">เตาเผาเฉพาะ (Specific Incineration)</option>
+                                </select>
+                                <div>
+                                    <button id="btntypeKiln">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+
+                            <div id="Cementkiln">
+                                <p>
+                                    ใช่/ไม่ใช่ เตาเผาซีเมนต์ที่ใช้ของเสียอันตรายเป็นวัตถุดิบทดแทนหรือเป็นเชื้อเพลิงเสริม
+                                </p>
+                                <select name="" id="selectCementkiln" class="form-control">
+                                    <option value="yes">ใช่</option>
+                                    <option value="no">ไม่ใช่</option>
+                                </select>
+                                <div>
+                                    <button id="btnCementkiln">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="Wastewater">
+                                <p>
+                                    มี/ไม่มี การบำบัดน้ำเสีย
+                                </p>
+                                <select name="" id="selectWastewater" class="form-control">
+                                    <option value="yes">มี</option>
+                                    <option value="no">ไม่มี</option>
+                                </select>
+                                <div>
+                                    <button id="btnWastewater">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="Ability">
+                                <p>
+                                    ความสามารถในการบำบัดน้ำเสีย (ลูกบาศ์กเมตรต่อวัน)
+                                </p>
+                                <select name="" id="selectAbility" class="form-control">
+                                    <option value="less30">น้อยกว่าหรือเท่ากับ 3,000 ลบ.ม./วัน</option>
+                                    <option value="more30">มากกว่า 3,000 ลบ.ม./วัน</option>
+                                </select>
+                                <div>
+                                    <button id="btnAbility">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="amount">
+                                <p>
+                                    ปริมาณในการกำจัด (ตันต่อวัน)
+                                </p>
+                                <select name="" id="selecamount" class="form-control">
+                                    <option value="less50">น้อยกว่าหรือเท่ากับ 50 ตัน/วัน</option>
+                                    <option value="more50">มากกว่า 50 ตัน/วัน</option>
+                                </select>
+                                <div>
+                                    <button id="btnamount">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="protectarea1">
+                                <p>
+                                    พื้นที่คุ้มครองสิ่งแวดล้อม
+                                    ชลบุรี เพชรบุรี ประจวบคีรีขันธ์ พังงา กระบี่ สุราษฎร์ธานี
+                                </p>
+                                <select name="" id="selectprotectarea1" class="form-control">
+                                    <option value="1">
+                                        อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี เพชรบุรี ประจวบคีรีขันธ์ พังงา กระบี่ สุราษฎร์ธานี
+                                    </option>
+                                    <option value="2">
+                                        ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี เพชรบุรี ประจวบคีรีขันธ์ พังงา กระบี่ สุราษฎร์ธานี
+                                    </option>
+                                </select>
+                                <div>
+                                    <button id="btnprotectarea1">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="protectarea2">
+                                <p>
+                                    พื้นที่คุ้มครองสิ่งแวดล้อม
+                                    พังงา กระบี่
+                                </p>
+                                <select name="" id="selectprotectarea2" class="form-control">
+                                    <option value="1">
+                                        อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม พังงา กระบี่
+                                    </option>
+                                    <option value="2">
+                                        ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม พังงา กระบี่
+                                    </option>
+                                </select>
+                                <div>
+                                    <button id="btnprotectarea2">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="protectarea3">
+                                <p>
+                                    พื้นที่คุ้มครองสิ่งแวดล้อม
+                                    ชลบุรี ภูเก็ต เพชรบุรี ประจวบคีรีขันธ์ สุราษฎร์ธานี
+                                </p>
+                                <select name="" id="selectprotectarea3" class="form-control">
+                                    <option value="1">
+                                        อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี ภูเก็ต เพชรบุรี ประจวบคีรีขันธ์ สุราษฎร์ธานี
+                                    </option>
+                                    <option value="2">
+                                        ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี ภูเก็ต เพชรบุรี ประจวบคีรีขันธ์ สุราษฎร์ธานี
+                                    </option>
+                                </select>
+                                <div>
+                                    <button id="btnprotectarea3">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+                            <div id="protectarea4">
+                                <p>
+                                    พื้นที่คุ้มครองสิ่งแวดล้อม / พื้นที่นิคมอุตสาหกรรม
+                                </p>
+                                <select name="" id="selectprotectarea4" class="form-control">
+                                    <optgroup label=" พื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี">
+                                        <option value="3">
+                                            อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี
+                                        </option>
+                                        <option value="4">
+                                            ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี
+                                        </option>
+                                    </optgroup>
+                                    <optgroup label=" พื้นที่นิคมอุตสาหกรรม
+                                    นิคมเอเชีย
+                                    นิคมอาร์ ไอ แอล
+                                    นิคมดับบลิว เอช เอตะวันออก (มาบตาพุด)
+                                    นิคมมาบตาพุด***
+                                    นิคมผาแดง***">
+                                        <option value="1">
+                                            อยู่ในพื้นที่นิคมอุตสาหกรรม
+                                        </option>
+                                        <option value="2">
+                                            ไม่อยู่ในพื้นที่นิคมอุตสาหกรรม
+                                        </option>
+                                    </optgroup>
+                                </select>
+                                <div>
+                                    <button id="btnprotectarea4">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+
+                            <div id="protectarea5">
+                                <p>
+                                    พื้นที่นิคมอุตสาหกรรม
+                                    นิคมเอเชีย
+                                    นิคมอาร์ ไอ แอล
+                                    นิคมดับบลิว เอช เอตะวันออก (มาบตาพุด)
+                                    นิคมมาบตาพุด***
+                                    นิคมผาแดง***"
+                                </p>
+                                <select name="" id="selectprotectarea5" class="form-control">
+                                    <option value="1">
+                                        อยู่ในพื้นที่นิคมอุตสาหกรรม
+                                    </option>
+                                    <option value="2">
+                                        ไม่อยู่ในพื้นที่นิคมอุตสาหกรรม
+                                    </option>
+                                </select>
+                                <div>
+                                    <button id="btnprotectarea5">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+
+
+
+
+                            <div id="riverarea">
+                                <p>
+                                    พื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                </p>
+                                <select name="" id="selectriverarea" class="form-control">
+                                    <option value="1">
+                                        อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                    </option>
+                                    <option value="2">
+                                        ไม่อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                    </option>
+                                </select>
+                                <div>
+                                    <button id="btnriverarea">ตกลง</button>
+                                </div>
+                                <hr />
+                            </div>
+
+                        </div>
+                        <div id="Resulte">
+                            <button onclick="hideresulte()">&uarr; back</button>
+                            <p id="label1">โครงการ กิจการ หรือการดำเนิดการ <u style="color:red;">เข้าข่าย</u> ต้องจัดทำรายงานด้านสิ่งแวดล้อม</p>
+                            <hr />
+                            <p id="label2">ประเภท</p>
+                            <p id="labeltype">
+                                EHIA
+                            </p>
+                            <hr />
+                            <p id="label3">เสนอต่อ</p>
+                            <p id="labeloffer">สผ.</p>
+                            <hr />
+                            <p id="label4">ตามกฎหมาย</p>
+                            <p id="labellaw">เรื่อง...</p>
+                            <hr />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-banner">
+        <div class="ffff">
+
+        </div>
+    </div>
+</body>
+<script>
+      var map;
+        function initMap() {
+            var latlng = new google.maps.LatLng(13.7651624, 100.893642);
+            var myOptions = {
+                zoom: 8,
+                center: latlng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map"), myOptions);
+        }
+         /*slide*/
+        function sliderr(n) {
+            var dis = $('#ss-' + n).css('display');
+            console.log(dis);
+            if (dis == 'none') {
+                $("#ss-" + n).css("display", "block");
+                $("#sd-" + n).css("height", "auto");
+
+            } else {
+                $("#ss-" + n).css("display", "none");
+                $("#sd-" + n).css("height", "0px");
+            }
+        }
+        function ss_l_menu() {
+            if ($(".ss-btn").hasClass("ww-100")) {
+                $(".ss-btn").removeClass("ww-100");
+                $(".l-menu").animate({ "left": "-400px" }, 300, "swing");
+                $(".ss-btn").animate({ "left": "0px" }, 300, "swing");
+                $(".ss-btn").html('<i class="fas fa-chevron-right"></i>')
+            } else {
+                $(".ss-btn").addClass("ww-100");
+                $(".l-menu").animate({ "left": "0px" }, 300, "swing");
+                $(".ss-btn").animate({ "left": "360px" }, 300, "swing");
+                $(".ss-btn").html('<i class="fas fa-chevron-left"></i>')
+            }
+
+        }
+        function ss_r_menu() {
+            if ($(".ss-r-btn").hasClass("ww-100")) {
+                $(".ss-r-btn").removeClass("ww-100");
+                $(".r-menu").animate({ "right": "-400px" }, 300, "swing");
+                $(".ss-r-btn").animate({ "right": "0px" }, 300, "swing");
+                $(".ss-r-btn").html('<i class="fas fa-chevron-left"></i>')
+            }
+            else {
+                $(".ss-r-btn").addClass("ww-100");
+                $(".r-menu").animate({ "right": "0px" }, 300, "swing");
+                $(".ss-r-btn").animate({ "right": "360px" }, 300, "swing");
+                $(".ss-r-btn").html('<i class="fas fa-chevron-right"></i>')
+            }
+
+        }
+        function hideresulte() {
+            $("#Resulte").hide();
+            $(".specify").show();
+    }
+
+    $(document).ready(function () {
+        $("#btnType").click(function () {
+            var Type = $('#selectType').find(":selected").val();
+            if (Type == "a" || Type == "b" || Type == "c") {
+                $("#amount").show();
+                $("#btnamount").click(function () {
+                    var amount = $('#selecamount').find(":selected").val();
+                    if (amount == "less50") {/*น้อยกว่า 50*/
+                        $("#protectarea1").show();
+                        $("#protectarea2").hide();
+                        $("#btnprotectarea1").click(function () {
+                            var protectarea1 = $('#selectprotectarea1').find(":selected").val();
+                            if (protectarea1 == "1") {/*ลุ่มน้ำ1*/
+                                $("#riverarea").show();
+                                $("#btnriverarea").click(function () {
+                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                    if (riverarea == "1") {
+                                        /*EIA*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                    } else {
+
+                                        /*ไม่จัดทำ*/
+                                        $(".specify").hide();
+                                        /*-------------------------------------*/
+                                        $("#Resulte").show();
+                                        document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                        $("#label2").hide();
+                                        $("#labeltype").hide();
+                                        $("#label3").hide();
+                                        $("#labeloffer").hide();
+                                        $("#label4").hide();
+                                        $("#labellaw").hide();
+                                        /*-------------------------------------*/
+                                    }
+                                });
+                            } else {
+
+                                $("#riverarea").show();
+                                $("#btnriverarea").click(function () {
+                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                    if (riverarea == "1") {
+
+                                        /*EIA*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+                                    } else {
+
+                                        /*IEE*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                        document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                        document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                        $("#protectarea2").show();
+                        $("#protectarea1").hide();
+                        $("#btnprotectarea2").click(function () {
+                            var protectarea2 = $("#selectprotectarea2").find(":selected").val();
+                            if (protectarea2 == "1") {
+                                $("#riverarea").show();
+                                $("#protectarea3").hide();
+                                $("#btnriverarea").click(function () {
+                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                    if (riverarea == "1") {
+                                        /*EIA*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                    } else {
+                                        /*IEE*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                        document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                        document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                    }
+                                });
+                            } else {
+                                $("#riverarea").hide();
+                                $("#protectarea3").show();
+                                $("#btnprotectarea3").click(function () {
+                                    var protectarea3 = $("#selectprotectarea3").find(":selected").val();
+                                    if (protectarea3 == "1") {
+                                        /*EIA*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                    } else {
+                                        /*ไม่จัดทำ*/
+                                        $(".specify").hide();
+                                        /*-------------------------------------*/
+                                        $("#Resulte").show();
+                                        document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                        $("#label2").hide();
+                                        $("#labeltype").hide();
+                                        $("#label3").hide();
+                                        $("#labeloffer").hide();
+                                        $("#label4").hide();
+                                        $("#labellaw").hide();
+                                        /*-------------------------------------*/
+                                    }
+                                });
+                            }
+
+                        });
+
+
+
+                    }
+                });
+            }
+            else if (Type == "d") {
+                $("#amount").hide();
+                $("#Usedmaterials").show();
+                $("#btnUsedmaterials").click(function () {
+                    var Usedmaterials = $('#selectUsedmaterials').find(":selected").val();
+                    if (Usedmaterials == "yes") {
+                        $("#dangertrash").show();
+                        $("#btndangertrash").click(function () {
+                            var dangertrash = $('#selectdangertrash').find(":selected").val();
+                            if (dangertrash == "yes") {
+                                $("#typeKiln").show();
+                                $("#btntypeKiln").click(function () {
+                                    var typeKiln = $('#selecttypeKiln').find(":selected").val();
+                                    if (typeKiln == "join") {
+                                        $("#Cementkiln").show();
+                                        $("#btnCementkiln").click(function () {
+                                            var Cementkiln = $('#selectCementkiln').find(":selected").val();
+                                            if (Cementkiln == "yes") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                /*EHIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการฯ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+
+                                            }
+                                        });
+                                    }
+                                    else {
+                                        /*EHIA*/
+                                        $(".specify").hide();
+                                        $("#Resulte").show();
+                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการฯ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+
+                                    }
+                                });
+                            } else {
+                                /*EHIA*/
+                                $(".specify").hide();
+                                $("#Resulte").show();
+                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการฯ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+
+                            }
+                        });
+                    } else {
+                        $("#Wastewater").show();
+                        $("#btnWastewater").click(function () {
+                            var Wastewater = $('#selectWastewater').find(":selected").val();
+                            if (Wastewater == "yes") {
+                                $("#Ability").show();
+                                $("#btnAbility").click(function () {
+                                    var Ability = $('#selectAbility').find(":selected").val();
+                                    if (Ability == "less30") {
+                                        $("#protectarea4").show();
+                                        $("#btnprotectarea4").click(function () {
+                                            var protectarea4 = $('#selectprotectarea4').find(":selected").val();
+                                            if (protectarea4 == "1" || protectarea4 == "3") {/*ในพื้นที่อุตสาหกรรม*/
+                                                $("#riverarea").show();
+                                                $("#protectarea3").hide();
+                                                $("#btnriverarea").click(function () {
+                                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                                    if (riverarea == "1") {
+                                                        /*EIA*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                                    }
+                                                    else {
+                                                        /*IEE*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                                        document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                                        document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                                    }
+                                                });
+                                            }
+                                            else if (protectarea4 == "2" || protectarea4 == "4") {/*นอกพื้นที่อุตสาหกรรม*/
+                                                $("#riverarea").show();
+                                                $("#btnriverarea").click(function () {
+                                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                                    if (riverarea == "1") {
+                                                        /*EIA*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                                    } else {
+                                                        /*ไม่จัดทำ*/
+                                                        $(".specify").hide();
+                                                        /*-------------------------------------*/
+                                                        $("#Resulte").show();
+                                                        document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                                        $("#label2").hide();
+                                                        $("#labeltype").hide();
+                                                        $("#label3").hide();
+                                                        $("#labeloffer").hide();
+                                                        $("#label4").hide();
+                                                        $("#labellaw").hide();
+                                                        /*-------------------------------------*/
+                                                    }
+                                                });
+                                            }
+
+                                        });
+                                    } else {/* > 3000 */
+                                        $("#protectarea4").show();
+                                        $("#btnprotectarea4").click(function () {
+                                            var protectarea4 = $('#selectprotectarea4').find(":selected").val();
+                                            if (protectarea4 == "1") {/*ในพื้นที่อุตสาหกรรม*/
+                                                $("#riverarea").show();
+                                                $("#protectarea3").hide();
+                                                $("#btnriverarea").click(function () {
+                                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                                    if (riverarea == "1") {
+                                                        /*EIA*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                                    }
+                                                    else {
+                                                        /*IEE*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                                        document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                                        document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                                    }
+                                                });
+                                            }
+                                            else if (protectarea4 == "3") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            }
+                                            else if (protectarea4 == "2" || protectarea4 == "4") {/*นอกพื้นที่อุตสาหกรรม*/
+                                                $("#riverarea").show();
+                                                $("#btnriverarea").click(function () {
+                                                    var riverarea = $("#selectriverarea").find(":selected").val();
+                                                    if (riverarea == "1") {
+                                                        /*EIA*/
+                                                        $(".specify").hide();
+                                                        $("#Resulte").show();
+                                                        document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                        document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                        document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                                    } else {
+                                                        /*ไม่จัดทำ*/
+                                                        $(".specify").hide();
+                                                        /*-------------------------------------*/
+                                                        $("#Resulte").show();
+                                                        document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                                        $("#label2").hide();
+                                                        $("#labeltype").hide();
+                                                        $("#label3").hide();
+                                                        $("#labeloffer").hide();
+                                                        $("#label4").hide();
+                                                        $("#labellaw").hide();
+                                                        /*-------------------------------------*/
+                                                    }
+                                                });
+                                            }
+
+                                        });
+                                    }
+
+                                });
+                            }
+                            else {
+
+                                $("#protectarea5").show();
+                                $("#btnprotectarea5").click(function () {
+                                    var protectarea5 = $("#selectprotectarea5").find(":selected").val();
+                                    if (protectarea5 == "1") {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                                document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                                document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                            }
+                                        });
+                                    } else {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                /*ไม่จัดทำ*/
+                                                $(".specify").hide();
+                                                /*-------------------------------------*/
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                                $("#label2").hide();
+                                                $("#labeltype").hide();
+                                                $("#label3").hide();
+                                                $("#labeloffer").hide();
+                                                $("#label4").hide();
+                                                $("#labellaw").hide();
+                                                /*-------------------------------------*/
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+
+                        });
+                    }
+                });
+            } else if (Type == "e") {
+                $("#amount").hide();
+                $("#Usedmaterials").show();
+                $("#btnUsedmaterials").click(function () {
+                    var Usedmaterials = $('#selectUsedmaterials').find(":selected").val();
+                    if (Usedmaterials == "yes") {
+                        $("#dangertrash").show();
+                        $("#btndangertrash").click(function () {
+                            var dangertrash = $('#selectdangertrash').find(":selected").val();
+                            if (dangertrash == "yes") {
+                                /*EHIA*/$(".specify").hide();
+                                $("#Resulte").show();
+                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม สำหรับโครงการ กิจการ หรือการดำเนินการฯ ที่อาจมีผลกระทบอย่างรุนแรง (EHIA)";
+                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการ หรือการดำเนินการ ซึ่งต้องจัดทำรายงาน EHIA (ลำดับที่ 4)";
+
+                            } else {
+                            /* พื้นที่นิคม */ /* -->> ลุ่มน้ำ */
+                                $("#protectarea5").show();
+                                $("#btnprotectarea5").click(function () {
+                                    var protectarea5 = $("#selectprotectarea5").find(":selected").val();
+                                    if (protectarea5 == "1") {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                                document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                                document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                            }
+                                        });
+                                    } else {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                /*ไม่จัดทำ*/
+                                                $(".specify").hide();
+                                                /*-------------------------------------*/
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                                $("#label2").hide();
+                                                $("#labeltype").hide();
+                                                $("#label3").hide();
+                                                $("#labeloffer").hide();
+                                                $("#label4").hide();
+                                                $("#labellaw").hide();
+                                                /*-------------------------------------*/
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
+                    } else {
+                    /* พื้นที่นิคม */ /* -->> ลุ่มน้ำ */
+                        $("#protectarea5").show();
+                                $("#btnprotectarea5").click(function () {
+                                    var protectarea5 = $("#selectprotectarea5").find(":selected").val();
+                                    if (protectarea5 == "1") {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerText = "โครงการ/กิจการ เข้าข่ายต้องจัดทำรายงานด้านสิ่งแวดล้อม";
+                                                document.getElementById('labeltype').innerHTML = "รายงานผลกระทบสิ่งแวดล้อมเบื้องต้น (Initial Environmental Examination; IEE)";
+                                                document.getElementById('labeloffer').innerHTML = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerHTML = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแวดล้อม เรื่อง กำหนดโครงการ กิจการหรือการดำเนินการ ซึ่งต้องจัดทำEIA (ลำดับที่ 27) http:// www.xxxx.co.th /DATA/PDF/2562/E/003?T_0001.PDF ";
+
+                                            }
+                                        });
+                                    } else {
+                                        $("#riverarea").show();
+                                        $("#btnriverarea").click(function () {
+                                            var riverarea = $("#selectriverarea").find(":selected").val();
+                                            if (riverarea == "1") {
+                                                /*EIA*/
+                                                $(".specify").hide();
+                                                $("#Resulte").show();
+                                                document.getElementById('labeltype').innerText = "รายงานการประเมินผลกระทบสิ่งแวดล้อม (EIA)";
+                                                document.getElementById('labeloffer').innerText = "สำนักงานนโยบายและแผนทรัพยากรธรรมชาติและสิ่งแวดล้อม (สผ.)";
+                                                document.getElementById('labellaw').innerText = "ประกาศกระทรวงทรัพยากรธรรมชาติและสิ่งแดล้อม เรื่อง กำหนดโครงการกิจการ หรือดำเนินการ ซึ่งต้องจัดทำรายงาน EIA (ลำดับที่ 27)";
+
+                                            } else {
+                                                /*ไม่จัดทำ*/
+                                                $(".specify").hide();
+                                                /*-------------------------------------*/
+                                                $("#Resulte").show();
+                                                document.getElementById('label1').innerHTML = "โครงการ กิจการ หรือการดำเนินการ ไม่เข้าข่าย ที่ต้องจัดทำรายงานด้านสิ่งแวดล้อมตามกฎหมาย";
+                                                $("#label2").hide();
+                                                $("#labeltype").hide();
+                                                $("#label3").hide();
+                                                $("#labeloffer").hide();
+                                                $("#label4").hide();
+                                                $("#labellaw").hide();
+                                                /*-------------------------------------*/
+                                            }
+                                        });
+                                    }
+                                });
+                    }
+                });
+
+            } 
+        });
+    });
+
+
+</script>
