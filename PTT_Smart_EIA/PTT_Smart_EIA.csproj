@@ -49,12 +49,21 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Http, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -120,7 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SmartEIAController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -167,18 +176,30 @@
     <Content Include="Content\template\img\logo.png" />
     <Content Include="Content\template\img\maptest.PNG" />
     <Content Include="Content\template\img\ptt-menu-logo.png" />
+    <Content Include="Content\template\img\Web ptt v9 16.9--13.jpg" />
+    <Content Include="Content\template\img\Web ptt v9 16.9--14.jpg" />
+    <Content Include="Content\template\img\Web ptt v9 16.9--15.jpg" />
+    <Content Include="Content\template\img\Web ptt v9 16.9--16.jpg" />
     <Content Include="Content\template\styles\styles.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="geoxml3\kmz\geoxml3.js" />
+    <Content Include="geoxml3\kmz\geoxml3_gxParse_kmz.js" />
+    <Content Include="geoxml3\kmz\ZipFile.complete.js" />
+    <Content Include="geoxml3\polys\geoxml3.js" />
+    <Content Include="geoxml3\ProjectedOverlay.js" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Image\11-01.jpg" />
     <Content Include="Image\12-01.jpg" />
     <Content Include="Image\background%402x.png" />
     <Content Include="Image\Backgroung\B10.jpg" />
+    <Content Include="Image\Backgroung\Web ptt v9 16.9---07.jpg" />
     <Content Include="Image\document %281%29.png" />
     <Content Include="Image\document.png" />
     <Content Include="Image\footer.jpg" />
+    <Content Include="Image\icon\icon-20.png" />
+    <Content Include="Image\icon\icon-21.png" />
     <Content Include="Image\icon\icon-01.jpg" />
     <Content Include="Image\icon\icon-02.jpg" />
     <Content Include="Image\icon\icon-03.jpg" />
@@ -200,10 +221,10 @@
     <Content Include="Image\icon\icon-19.jpg" />
     <Content Include="Image\img.jpg" />
     <Content Include="Image\Logo.png" />
-    <Content Include="Image\logo11.png" />
     <Content Include="Image\Logo\logo ptt-01.png" />
     <Content Include="Image\picture.png" />
     <Content Include="Image\bG.jpg" />
+    <Content Include="Image\สผ.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\template\img\ThaiSansNeue-Black.otf" />
@@ -225,8 +246,11 @@
     <Content Include="Content\template\img\ThaiSansNeue-UltraLight.otf" />
     <Content Include="Content\template\img\ThaiSansNeue-UltraLightItal.otf" />
     <Content Include="Content\template\img\ThaiSansNeue.rar" />
+    <Content Include="geoxml3\README.md" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile2.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile3.pubxml" />
     <None Include="Properties\PublishProfiles\PTT_EIA_25_03_63.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -252,33 +276,50 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Login.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\Homepage.cshtml" />
-    <Content Include="Views\Home\Gis.cshtml" />
+    <Content Include="Views\SmartEIA\Login.cshtml" />
+    <Content Include="Views\SmartEIA\Contact.cshtml" />
+    <Content Include="Views\SmartEIA\Index.cshtml" />
+    <Content Include="Views\SmartEIA\Homepage.cshtml" />
+    <Content Include="Views\SmartEIA\Gis.cshtml" />
     <Content Include="Views\Shared\_LayoutPageMap1.cshtml" />
-    <Content Include="Views\Home\LargeBuildings.cshtml" />
-    <Content Include="Views\Home\Hospital.cshtml" />
-    <Content Include="Views\Home\Hotel.cshtml" />
-    <Content Include="Views\Home\PipelineTransportation.cshtml" />
-    <Content Include="Views\Home\Industrialestate.cshtml" />
-    <Content Include="Views\Home\Wasteadjustment.cshtml" />
-    <Content Include="Views\Home\Landallocation.cshtml" />
+    <Content Include="Views\SmartEIA\LargeBuildings.cshtml" />
+    <Content Include="Views\SmartEIA\Hospital.cshtml" />
+    <Content Include="Views\SmartEIA\Hotel.cshtml" />
+    <Content Include="Views\SmartEIA\PipelineTransportation.cshtml" />
+    <Content Include="Views\SmartEIA\Industrialestate.cshtml" />
+    <Content Include="Views\SmartEIA\Wasteadjustment.cshtml" />
+    <Content Include="Views\SmartEIA\Landallocation.cshtml" />
     <Content Include="Views\Shared\_template.cshtml" />
     <Content Include="Views\Template\Calculate.cshtml" />
-    <Content Include="Views\Home\MenuProject.cshtml" />
+    <Content Include="Views\SmartEIA\MenuProject.cshtml" />
     <Content Include="Views\Shared\_LayoutContentLawEIA.cshtml" />
     <Content Include="Views\Shared\_LayoutLogin.cshtml" />
     <Content Include="Views\Shared\_LayoutRegister.cshtml" />
-    <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\ResidentialBuildings.cshtml" />
+    <Content Include="Views\SmartEIA\Register.cshtml" />
+    <Content Include="Views\SmartEIA\ResidentialBuildings.cshtml" />
+    <Content Include="Views\SmartEIA\EnvironmentalRegulartory.cshtml" />
+    <Content Include="Views\SmartEIA\EnvironmentalSmartImap.cshtml" />
+    <Content Include="Views\SmartEIA\Petrochemical.cshtml" />
+    <Content Include="Views\SmartEIA\OliPetrochemical.cshtml" />
+    <Content Include="Views\SmartEIA\TransformGas.cshtml" />
+    <Content Include="Views\SmartEIA\TransportUseRails.cshtml" />
+    <Content Include="Views\SmartEIA\Docks.cshtml" />
+    <Content Include="Views\SmartEIA\SportDocks.cshtml" />
+    <Content Include="Views\SmartEIA\LandReclamationAtSea.cshtml" />
+    <Content Include="Views\SmartEIA\ConstructionOrExpensionAtSea.cshtml" />
+    <Content Include="Views\SmartEIA\AirTransportation.cshtml" />
+    <Content Include="Views\SmartEIA\PetroliumDevelopment.cshtml" />
+    <Content Include="Views\SmartEIA\ThemalPowerPlant.cshtml" />
+    <Content Include="Views\SmartEIA\ExpressWay.cshtml" />
+    <Content Include="Views\SmartEIA\HighWayOrRoad.cshtml" />
+    <Content Include="Views\SmartEIA\LargeBuildingsNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\template\include\" />
     <Folder Include="Content\template\js\" />
     <Folder Include="UploadedFiles\" />
+    <Folder Include="Views\MapPipeLine\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

@@ -15,6 +15,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://kit.fontawesome.com/29ba5ebcbb.js" crossorigin="anonymous"></script>
     <style>
+         #Resulte,#Resulte,#resulteNext,#resultenext{
+             padding:5px;
+         }
+
     </style>
 </head>
 <body>
@@ -23,26 +27,28 @@
             <div class="logo-box">
                 <img src="@Url.Content("~/Content/template/")img/ptt-menu-logo.png" alt="">
             </div>
-            <div class="menu-list">
-                <div class="sch-box">
-                    <input type="text" name="" id="">
-                    <div class="sch-icon"><i class="fas fa-search"></i></div>
-                </div>
-                <ul class="sys-menu">
-                    <li>
-                        <a href="/Home/Homepage">หน้าแรก</a>
-                    </li>
-                    <li>
-                        <a href="">จัดการข้อมูลผู้ใช้</a>
-                    </li>
-                    <li>
-                        <a href="">ตั้งค่าระบบ</a>
-                    </li>
-                    <li>
-                        <a href="">ตั้งค่าระบบ</a>
-                    </li>
-                </ul>
+            <div class="wd-s">
+                <div class="menu-list">
+                    <div class="sch-box">
+                        <input type="text" name="" id="">
+                        <div class="sch-icon"><i class="fas fa-search"></i></div>
+                    </div>
+                    <ul class="sys-menu">
+                        <li>
+                            <a href="/SmartEIA/MenuProject">ย้อนกลับ</a>
+                        </li>
 
+                        <li>
+                            <a href="/SmartEIA/Homepage">หน้าแรก</a>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+            <div id="flip" class="mb-s">
+                <div class="icon-box">
+                    <i class="fas fa-bars"></i>
+                </div>
             </div>
 
         </div>

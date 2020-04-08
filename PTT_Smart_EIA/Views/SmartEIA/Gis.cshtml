@@ -1,0 +1,421 @@
+﻿
+@{
+    ViewBag.Title = "PTT Smart EIA Regulatory";
+    Layout = "~/Views/Shared/_LayoutContentLawEIA.cshtml";
+}
+<head>
+
+    <style>
+        .map {
+            background-color: #fff;
+            width: 100%;
+            padding: 5px;
+            height: 700px;
+            float: left;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+     
+
+           #Resulte, #resulteNext, #costomtest, #kmztest, #areatest, .Protectedarea, #protectAll, #typeBuilding, #riverArea1, #riverArea2, .DistanceGis, #b1, #b2, #b3 {
+                display: none;
+            }
+    </style>
+
+</head>
+<body onload="initMap()">
+    <div class="xxx" style="padding: 5px 0px 5px 5px; display: flex; flex-wrap:wrap;">
+        <div class="header-banner">
+            <div class="btx">
+                <div class="img-ss">
+                    <img src="@Url.Content("~/Content/template/")img/link-3.svg" alt="" width="90px" height="90px">
+                </div>
+                <p>
+                    3.นิคมอุตสาหกรรม
+                </p>
+            </div>
+        </div>
+        </div>
+<div class="contain-index" style="padding: 15px 0px; background-color: #e7eef1; overflow-x: hidden;">
+        <div class="row" style=" margin-right: 0px;margin-left: 0px;">
+            <div class="col-lg-12 nopadding">
+                <span class="ss-btn" onclick="ss_l_menu()"><i class="fas fa-chevron-right"></i></span>
+                <div class="l-menu bg-gg nopadding">
+                    <div class="data-col">
+                        <p class="ddda">
+                            1.ระบุที่ตั้งโครงการ
+                        </p>
+                        <div class="pp-list">
+                            <div class="list-p" onclick="sliderr(1)">
+                                <p class="hh">
+                                    พิกัดที่ตั้ง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-1">
+                                <div class="sl-input" id="sd-1">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                    
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(2)">
+                                <p class="hh">
+                                    กำหนดเอง
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-2">
+                                <div class="sl-input" id="sd-2">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                     </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(3)">
+                                <p class="hh">
+                                    ตำแหน่งจากข้อมูล kmz ไฟล์
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-3">
+                                <div class="sl-input" id="sd-3">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                            <div class="list-p" onclick="sliderr(4)">
+                                <p class="hh">
+                                    ไม่ระบุที่ตั้งโครงการ
+                                </p>
+                            </div>
+                            <div class="dt-slide" id="ss-4">
+                                <div class="sl-input" id="sd-4">
+                                    <button>Add placemark</button>
+                                    <button>Draw line or shape</button>
+                                    <textarea class="txa-50" rows="5" cols="50">
+                                        
+                                        </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="row no_mr">
+                    <div class="col-md-8">
+                        <div class="map">
+                            <div id="map"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="nopadding ">
+                            <div class="data-col">
+                                <div class="specify">
+                                    <p class="ddda" style="margin-top: 10px;">
+                                        2.ระบุรายละเอียดโครงการ
+                                    </p>
+                                    <div id="Type">
+                                        <p>
+                                            ประเภทกิจการ
+                                        </p>
+                                        <select name="" id="selectType" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือกประเภทกิจการ--
+                                            </option>
+                                            <option value="a">โรงงานปรับคุณภาพของเสียรวมชุมชน</option>
+                                            <option value="b">สถานที่ที่ใช้ในการกำจัดขยะมูลฝอย</option>
+                                            <option value="c"> โรงงานประกอบกิจการเกี่ยวกับการคัดแยกหรือการฝังกลบสิ่งปฏิกูลหรือวัสดุไม่ใช้แล้วในชุมชน</option>
+                                            <option value="d">โรงงานปรับคุณภาพของเสียรวม (รง. 101) ได้แก่ โรงงานบำบัดน้ำเสียรวม โรงงานเผาของเสียรวม</option>
+                                            <option value="e">โรงงานประกอบกิจการเกี่ยวกับการฝังกลบ (รง. 105)</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnType" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="Usedmaterials">
+                                        <p>
+                                            ใช้กำจัดสิ่งปฏิกูลหรือวัสดุไม่ใช้แล้ว
+                                            ตามกฎหมายว่าด้วยโรงงาน*
+                                        </p>
+                                        <select name="" id="selectUsedmaterials" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ใช้กำจัดสิ่งปฏิกูลหรือวัสดุไม่ใช้แล้วตามกฎหมายว่าด้วยโรงงาน--
+                                            </option>
+                                            <option value="yes">ใช่</option>
+                                            <option value="no">ไม่ใช่</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnUsedmaterials" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="dangertrash">
+                                        <p>
+                                            ใช่/ไม่ใช่ ขยะอันตราย
+                                        </p>
+                                        <select name="" id="selectdangertrash" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ใช่/ไม่ใช่ ขยะอันตราย--
+                                            </option>
+                                            <option value="yes">ใช่</option>
+                                            <option value="no">ไม่ใช่</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btndangertrash" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                    <div id="typeKiln">
+                                        <p>
+                                            ประเภทเตาเผา
+                                        </p>
+                                        <select name="" id="selecttypeKiln" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ประเภทเตาเผา--
+                                            </option>
+                                            <option value="join">เตาเผาร่วม (Co-incineration)</option>
+                                            <option value="only">เตาเผาเฉพาะ (Specific Incineration)</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btntypeKiln" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                    <div id="Cementkiln">
+                                        <p>
+                                            ใช่/ไม่ใช่ เตาเผาซีเมนต์ที่ใช้ของเสียอันตรายเป็นวัตถุดิบทดแทนหรือเป็นเชื้อเพลิงเสริม
+                                        </p>
+                                        <select name="" id="selectCementkiln" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ใช่/ไม่ใช่ เตาเผาซีเมนต์ที่ใช้ของเสียอันตรายเป็นวัตถุดิบทดแทนหรือเป็นเชื้อเพลิงเสริม--
+                                            </option>
+                                            <option value="yes">ใช่</option>
+                                            <option value="no">ไม่ใช่</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnCementkiln" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="Wastewater">
+                                        <p>
+                                            มี/ไม่มี การบำบัดน้ำเสีย
+                                        </p>
+                                        <select name="" id="selectWastewater" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ใช่/ไม่ใช่ การบำบัดน้ำเสีย--
+                                            </option>
+                                            <option value="yes">มี</option>
+                                            <option value="no">ไม่มี</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnWastewater" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="Ability">
+                                        <p>
+                                            ความสามารถในการบำบัดน้ำเสีย (ลูกบาศ์กเมตรต่อวัน)
+                                        </p>
+                                        <select name="" id="selectAbility" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ความสามารถในการบำบัดน้ำเสีย--
+                                            </option>
+                                            <option value="less30">น้อยกว่าหรือเท่ากับ 3,000 ลบ.ม./วัน</option>
+                                            <option value="more30">มากกว่า 3,000 ลบ.ม./วัน</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnAbility" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="amount">
+                                        <p>
+                                            ปริมาณในการกำจัด (ตันต่อวัน)
+                                        </p>
+                                        <select name="" id="selecamount" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก ปริมาณในการกำจัด--
+                                            </option>
+                                            <option value="less50">น้อยกว่าหรือเท่ากับ 50 ตัน/วัน</option>
+                                            <option value="more50">มากกว่า 50 ตัน/วัน</option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnamount" class="ee-bb"> ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="protectarea1">
+                                        <p>
+                                            พื้นที่คุ้มครองสิ่งแวดล้อม
+                                        </p>
+                                        <select name="" id="selectprotectarea1" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก พื้นที่คุ้มครองสิ่งแวดล้อม--
+                                            </option>
+                                            <option value="1">
+                                                อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี เพชรบุรี ประจวบคีรีขันธ์ พังงา กระบี่ สุราษฎร์ธานี
+                                            </option>
+                                            <option value="2">
+                                                ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี เพชรบุรี ประจวบคีรีขันธ์ พังงา กระบี่ สุราษฎร์ธานี
+                                            </option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnprotectarea1" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="protectarea2">
+                                        <p>
+                                            พื้นที่คุ้มครองสิ่งแวดล้อม
+                                        </p>
+                                        <select name="" id="selectprotectarea2" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก พื้นที่คุ้มครองสิ่งแวดล้อม--
+                                            </option>
+                                            <option value="1">
+                                                อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม พังงา กระบี่
+                                            </option>
+                                            <option value="2">
+                                                ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม พังงา กระบี่
+                                            </option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnprotectarea2" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+                                    <div id="protectarea3">
+                                        <p>
+                                            พื้นที่คุ้มครองสิ่งแวดล้อม
+                                        </p>
+                                        <select name="" id="selectprotectarea3" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก พื้นที่คุ้มครองสิ่งแวดล้อม--
+                                            </option>
+                                            <option value="1">
+                                                อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี ภูเก็ต เพชรบุรี ประจวบคีรีขันธ์ สุราษฎร์ธานี
+                                            </option>
+                                            <option value="2">
+                                                ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี ภูเก็ต เพชรบุรี ประจวบคีรีขันธ์ สุราษฎร์ธานี
+                                            </option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnprotectarea3" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                    <div id="areaIndrustry" style=" text-align:center;">
+                                        <hr /> <select id="selectareaIndrustry1" size="8" style="width: 300px;   height: auto;">
+                                            <option value="1">นิคมเอเชีย</option>
+                                            <option value="2">นิคมอาร์ ไอ แอล</option>
+                                            <option value="3">นิคมดับบลิว เอช เอตะวันออก (มาบตาพุด)</option>
+                                            <option value="4">นิคมมาบตาพุด</option>
+                                            <option value="5">นิคมผาแดง</option>
+                                            <option value="6">ไม่อยู่ในพื้นที่นิคมอุตสาหกรรม</option>
+                                            <option value="8">ไม่อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี</option>
+
+                                        </select>
+                                        <button id="btnaddremove" onclick="remove()">&darr; Add   </button>
+                                        <button id="btnaddremove" onclick="add()">&uarr; Remove </button>
+                                        <select id="selectareaIndrustry2" size="3" style="width: 300px; height: auto;">
+                                            <option value="7" selected>อยู่ในพื้นที่คุ้มครองสิ่งแวดล้อม ชลบุรี</option>
+                                        </select>
+                                        <div class="pc-btn"> <button class="ee-bb" id="BtnareaIndrustry">ตกลง </button></div>
+                                        <br />
+                                        <hr />
+                                    </div>
+                                    <div id="riverarea">
+                                        <p>
+                                            พื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                        </p>
+                                        <select name="" id="selectriverarea" class="form-control">
+                                            <option value="none" selected>
+                                                --เลือก พื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1--
+                                            </option>
+                                            <option value="1">
+                                                อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                            </option>
+                                            <option value="2">
+                                                ไม่อยู่ในพื้นที่ชั้นคุณภาพลุ่มน้ำ ชั้น 1
+                                            </option>
+                                        </select>
+                                        <div class="pc-btn">
+                                            <button id="btnriverarea" class="ee-bb">ตกลง</button>
+                                        </div>
+                                        <hr />
+                                    </div>
+
+                                </div>
+
+                                <div id="Resulte">
+                                    <h4 style="width:100%; text-align:left;"><u>สรุปผล</u></h4>
+                                    <p id="label1">โครงการ กิจการ หรือการดำเนินการ <u style="color:red;">เข้าข่าย</u> ต้องจัดทำรายงานด้านสิ่งแวดล้อม</p>
+                                    <hr />
+                                    <h5 id="label2">ประเภท</h5>
+                                    <p id="labeltype">
+                                        EHIA
+                                    </p>
+                                    <hr />
+                                    <h5 id="label3">เสนอต่อ</h5>
+                                    <p id="labeloffer">สผ.</p>
+                                    <hr />
+                                    <h5 id="label4">ตามกฎหมาย</h5>
+                                    <p id="labellaw">เรื่อง...</p>
+                                    <hr />
+                                    <div class="pc-btn">
+                                        <button onclick="hideresulte()" class="ee-bb">&uarr; ย้อนกลับ</button>
+                                    </div>
+                                </div>
+
+                                <div id="ResulteNone">
+                                    <h4 style="width:100%; text-align:left;"><u>สรุปผล</u></h4>
+                                    <p> เนื่องจาก <u style="color:green;">ไม่เข้าข่าย</u> ที่ต้องจัดทำรายงายด้านสิ่งแวดล้อมตามกฎหมายที่เกี่ยวข้องกับ โรงงานปรับคุณภาพของเสียรวมเฉพาะสิ่งปฏิกูลหรือวัสดุที่ไม่ใช้แล้ว </p>
+                                    <hr />
+                                    <div class="pc-btn">  <button class="ee-bb" onclick="hideresulte()">&uarr; ย้อนกลับ</button></div><br />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-banner">
+        <div class="ffff">
+
+        </div>
+    </div>
+</body>
+<script>
+    /*map*/
+    var map;
+    function initMap() {
+        var latlng = new google.maps.LatLng(13.7651624, 100.893642);
+        var myOptions = {
+            zoom: 8,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map"), myOptions);
+    }
+    </script>
+
+
